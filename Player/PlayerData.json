@@ -1,0 +1,15 @@
+{"ship": {
+	"level": 0,
+	"xp": 0,
+	"hp": 20,
+	"shields": 10
+	"ammo": 8,
+	"attributes": {
+		"handling": 0,
+		"acceleration": 0
+	},
+	"equipment": {
+		"primary_gun": "laser",
+		"secondary_gun": "missile"
+	}
+}}
