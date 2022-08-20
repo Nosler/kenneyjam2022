@@ -6,18 +6,21 @@ var PlayerDataHandler = ""
 var data = ""
 var xp_to_level = 0
 
+var hp_on_levelup = 3
+var shield_on_levelup = 1
+var energy_on_levelup = 1
+var accel_on_levelup = 1
+var handle_on_levelup = 1
+
 func _ready():
 	PlayerDataHandler = get_node("/root/PlayerDataHandler")
 	data = PlayerDataHandler.PlayerData.ship
 	
-	var filepath = PlayerDataHandler.PlayerDataFilepath
-	
-	# Sets initial textbox data
-	xp_to_level = round(2* ((1 - pow(XpRate, data.level)) / (1 - XpRate)))
-	refresh_textboxes()
-
 	# Sets button visibility based on check_ready_level_up function's output
 	buttons_visible(check_ready_level_up())
+	
+	# Sets initial textbox data
+	refresh_textboxes()
 
 
 # Sets the GUI buttons's visibility to given input
@@ -58,7 +61,8 @@ func refresh_textboxes():
 
 # Checks if the player has enough experience to gain the next level
 func check_ready_level_up() -> bool:
-	return data.exp >= round(2* ((1 - pow(XpRate, data.level)) / (1 - XpRate)))
+	xp_to_level = round(2* ((1 - pow(XpRate, data.level)) / (1 - XpRate)))
+	return data.exp >= xp_to_level
 
 
 # Handles all the level-up functionality
@@ -78,30 +82,30 @@ func level_up():
 # Level Up buttons' signal handling
 func _on_HPButton_pressed() -> void:
 	var data = PlayerDataHandler.PlayerData.ship
-	data.hp_max += 1
-	data.hp += 1
+	data.hp_max += hp_on_levelup
+	data.hp += hp_on_levelup
 	level_up()
 
 
 func _on_ShieldButton_pressed() -> void:
-	data.shield_max += 1
-	data.shield += 1
+	data.shield_max += shield_on_levelup
+	data.shield += shield_on_levelup
 	level_up()
 
 
 func _on_AccelButton_pressed() -> void:
-	data.acceleration += 1
+	data.acceleration += accel_on_levelup
 	level_up()
 
 
 func _on_HandlingButton_pressed() -> void:
-	data.handling += 1
+	data.handling += handle_on_levelup
 	level_up()
 
 
 func _on_BatteryButton_pressed() -> void:
-	data.energy_max += 1
-	data.energy += 1
+	data.energy_max += energy_on_levelup
+	data.energy += energy_on_levelup
 	level_up()
 
 

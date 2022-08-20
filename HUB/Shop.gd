@@ -7,10 +7,10 @@ const missile_price = 200
 var PlayerDataHandler = ""
 var data = ""
 
-var pp_base_prices = [ 100, 100, 100 ]
-var pd_base_prices = [ 100, 100, 100 ]
-var ic_base_prices = [ 100, 100, 100 ]
-var ml_base_prices = [ 100, 100, 100 ]
+var pp_base_prices = [ 150, 150, 150 ]
+var pd_base_prices = [ 150, 150, 150 ]
+var ic_base_prices = [ 150, 150, 150 ]
+var ml_base_prices = [ 150, 150, 150 ]
 
 var pd_price = 500
 var ic_price = 500
@@ -31,7 +31,10 @@ func _ready():
 	set_ic() # Ion cannon
 	set_ml() # Missile launcher
 	update_paperclips() # Paperclips
-
+	
+	$NameLabels/LabelContainer/PointDefenseLabel/BuyPD.text = "Point Defense: $%s" % pd_price
+	$NameLabels/LabelContainer/IonCannonLabel/BuyIC.text = "Ion Cannon: $%s" % pd_price
+	$NameLabels/LabelContainer/MissileLabel/BuyML.text = "Missile Launcher: $%s" % pd_price
 
 # Does some math to update prices based on the initial upgrade cost and the cost_modifier constant
 func get_prices(p1, p2, p3, ups1, ups2, ups3):
@@ -320,3 +323,4 @@ func _on_BuyML_pressed() -> void:
 		data.paperclips -= ml_price
 		data.missile_launcher.enabled = true
 		$NameLabels/LabelContainer/MissileLabel/BuyML.visible = false
+		set_ml()

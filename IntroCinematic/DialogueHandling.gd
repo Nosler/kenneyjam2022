@@ -7,6 +7,8 @@ var Display: = ""
 var Lines: = [ ]
 var CurrentLine: = 0
 
+var load_done = false
+
 
 func _ready():
 	var Display = get_node("TextBoxContainer/MarginContainer/HBoxContainer/DisplayText")
@@ -17,6 +19,9 @@ func _ready():
 		Lines.insert(Lines.size(), line)
 		
 	Display.text = Lines[CurrentLine]
+	
+	print("Dialogue Handler Loaded")
+	load_done = true
 
 
 func load_dialogue():
@@ -45,12 +50,18 @@ func load_dialogue():
 
 # Goes to the next dialogue when the player clicks
 func _input(event: InputEvent) -> void:
+	if not load_done:
+		print("Not loaded")
+		return
+
 	var Display = get_node("TextBoxContainer/MarginContainer/HBoxContainer/DisplayText")
+	
+	print("Player clicked")
 	
 	if event.is_action_pressed("click"):
 		if CurrentLine < Lines.size()-1:
 			CurrentLine += 1
 			Display.text = Lines[CurrentLine]
 			
-		else:
-			return
+		elif CurrentLine >= Lines.size()-1:
+			get_tree().change_scene("res://HUB/HUB.tscn")
