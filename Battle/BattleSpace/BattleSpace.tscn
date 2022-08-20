@@ -16,7 +16,7 @@ move_speed = 1.0
 zoom_speed = 1.0
 min_zoom = 0.1
 max_zoom = 100000
-margin = Vector2( 50, 50 )
+margin = Vector2( 200, 200 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 contacts_reported = 1
