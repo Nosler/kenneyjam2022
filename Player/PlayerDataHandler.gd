@@ -23,7 +23,7 @@ func load_attributes():
 	var data_parse = JSON.parse(text)
 
 	if data_parse.error != OK:
-		print("Error returned when attempting to parse json file in load_attributes")
+		print("Error returned when attempting to parse json file in PlayerData Handler")
 		return
 
 	PlayerData = data_parse.result

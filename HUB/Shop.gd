@@ -55,12 +55,8 @@ func set_pp():
 	var pewpews = data.pewpews
 	var enabled = pewpews.enabled
 	
-	var pewlabel = $NameLabels/LabelContainer/PewPewLabel
-	var pewups = $PewPewTrackers
-	var pewshop = $PewPewShop
-	
-	pewups.visible = enabled
-	pewshop.visible = enabled
+	$PewPewTrackers.visible = enabled
+	$PewPewShop.visible = enabled
 	
 	update_paperclips()
 	
@@ -68,9 +64,6 @@ func set_pp():
 		var en_cost = pewpews.energy_cost
 		var pr_range = pewpews.projectile_range
 		var pr_speed = pewpews.projectile_speed
-		
-		# Set here instead of through pewlabel.visible to avoid UI alignment problems
-		pewlabel.text = "Lasers"
 		
 		$PewPewTrackers/PewPewLabels/PPUp1.text = "Energy Cost: %s/3" % en_cost
 		$PewPewTrackers/PewPewLabels/PPUp2.text = "Range: %s/3" % pr_range
@@ -81,21 +74,15 @@ func set_pp():
 		$PewPewShop/PewPewGrid/PP1Label.text = "$%s" % pp_actual_prices[0]
 		$PewPewShop/PewPewGrid/PP2Label.text = "$%s" % pp_actual_prices[1]
 		$PewPewShop/PewPewGrid/PP3Label.text = "$%s" % pp_actual_prices[2]
-		
-	else:
-		pewlabel.text = ""
 
 # Sets up the Point Defense shop display
 func set_pd():
 	var pd = data.point_defense
 	var enabled = pd.enabled
 	
-	var pdlabel = $NameLabels/LabelContainer/PointDefenseLabel
-	var pdups = $PointDefenseTrackers
-	var pdshop = $PointDefenseShop
-	
-	pdups.visible = enabled
-	pdshop.visible = enabled
+	$PointDefenseTrackers.visible = enabled
+	$PointDefenseShop.visible = enabled
+	$NameLabels/LabelContainer/PointDefenseLabel/BuyPD.visible = not enabled
 	
 	update_paperclips()
 	
@@ -103,9 +90,6 @@ func set_pd():
 		var en_cost = pd.energy_cost
 		var fr_rate = pd.fire_rate
 		var en_reg = pd.energy_regen
-		
-		# Set here instead of through pdlabel.visible to avoid UI alignment problems
-		pdlabel.text = "Point Defense"
 		
 		$PointDefenseTrackers/PointDefenseLabels/PDUp1.text = "Energy Cost: %s/3" % en_cost
 		$PointDefenseTrackers/PointDefenseLabels/PDUp2.text = "Fire Rate: %s/3" % fr_rate
@@ -122,12 +106,9 @@ func set_ic():
 	var ic = data.ion_cannon
 	var enabled = ic.enabled
 	
-	var iclabel = $NameLabels/LabelContainer/IonCannonLabel
-	var icups = $IonCannonTrackers
-	var icshop = $IonCannonShop
-	
-	icups.visible = enabled
-	icshop.visible = enabled
+	$IonCannonTrackers.visible = enabled
+	$IonCannonShop.visible = enabled
+	$NameLabels/LabelContainer/IonCannonLabel/BuyIC.visible = not enabled
 	
 	update_paperclips()
 	
@@ -135,9 +116,6 @@ func set_ic():
 		var bm_len = ic.length
 		var sw_ran = ic.sweep_range
 		var sw_spd = ic.sweep_speed
-		
-		# Set here instead of through iclabel.visible to avoid UI alignment problems
-		iclabel.text = "Ion Cannon"
 		
 		$IonCannonTrackers/IonCannonLabels/ICUp1.text = "Beam Length: %s/3" % bm_len
 		$IonCannonTrackers/IonCannonLabels/ICUp2.text = "Sweep Range: %s/3" % sw_ran
@@ -156,6 +134,7 @@ func set_ml():
 	
 	$MissileTrackers.visible = enabled
 	$MissileShop.visible = enabled
+	$NameLabels/LabelContainer/MissileLabel/BuyML.visible = not enabled
 	
 	# Enables resource view & buy button
 	$Resources/VBoxContainer/Missiles.visible = enabled
