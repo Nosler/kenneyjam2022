@@ -2,6 +2,11 @@ extends Node2D
 
 var speed = 600
 var edge_warp_thresh
+
+func _ready():
+	$Lifespan.wait_time = .5 + PlayerDataHandler.PlayerData.ship.pewpews.projectile_range * .5
+	speed = 500 + PlayerDataHandler.PlayerData.ship.pewpews.projectile_speed * 300
+
 func _physics_process(delta):
 	position -= transform.y * speed * delta
 	if position.x >= edge_warp_thresh or position.x <= -edge_warp_thresh:

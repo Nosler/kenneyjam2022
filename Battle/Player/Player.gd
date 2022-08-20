@@ -6,7 +6,6 @@ var thrust = Vector2(0, -300)
 var torque = 50000
 var edge_warp_thresh = 0
 
-var test_size = 3
 var hp = 5
 var shields = 3
 var missiles = 100
@@ -17,17 +16,42 @@ var recharge_rate = 1
 var unloading_energy = false
 var invunerable = false
 
+var pewpew_cost = 1
+
 var has_pdl = true
 var pdl_cost = .5
+var pdl_level = 0
 var pdl_activated = false
 var pdl_targets = []
+
 
 var has_missiles = false
 var has_ioncannon = true
 
 func _ready():
 	$IonCannon.set_enabled(false)
-	scale = Vector2(test_size, test_size)
+	
+	hp = PlayerDataHandler.PlayerData.ship.hp
+	shields = PlayerDataHandler.PlayerData.ship.shield_max
+	thrust = Vector2(0, -300 - PlayerDataHandler.PlayerData.ship.acceleration * 50)
+	torque = 40000 + PlayerDataHandler.PlayerData.ship.handling * 250
+	max_energy = PlayerDataHandler.PlayerData.ship.energy_max
+	energy = max_energy/3
+	missiles = PlayerDataHandler.PlayerData.ship.missiles
+	
+	pewpew_cost = 1 - PlayerDataHandler.PlayerData.ship.pewpews.energy_cost * .25
+	
+	pdl_cost = .5 - PlayerDataHandler.PlayerData.ship.point_defense.energy_cost/9
+	$PDLTimer.wait_time = 0.35 - PlayerDataHandler.PlayerData.ship.point_defense.fire_rate / 10
+	pdl_level = PlayerDataHandler.PlayerData.ship.point_defense.energy_regen
+	
+	print(PlayerDataHandler.PlayerData.ship.point_defense.enabled)
+	has_pdl = PlayerDataHandler.PlayerData.ship.point_defense.enabled
+	has_ioncannon = PlayerDataHandler.PlayerData.ship.ion_cannon.enabled
+	has_missiles = PlayerDataHandler.PlayerData.ship.missile_launcher.enabled
+	
+	print(PlayerDataHandler.PlayerData.ship.ion_cannon.length)
+	
 	#read input from the battle zone
 	if has_pdl:
 		$Sprite/PointDefence.visible = true
@@ -45,13 +69,15 @@ func _input(event):
 	if event.is_action_pressed('weapon1'):
 		shoot_pewpew()
 	if event.is_action_pressed('weapon2'):
-		pdl_activated = true
-		$PDLTimer.start()
-		$PDLZone.visible = true
+		if has_pdl:
+			pdl_activated = true
+			$PDLTimer.start()
+			$PDLZone.visible = true
 	if event.is_action_released('weapon2'):
-		pdl_activated = false
-		$PDLTimer.stop()
-		$PDLZone.visible = false
+		if has_pdl:
+			pdl_activated = false
+			$PDLTimer.stop()
+			$PDLZone.visible = false
 	if event.is_action_pressed('weapon3'):
 		if energy > 5 and has_ioncannon:
 			energy -= 5
@@ -64,6 +90,8 @@ func _input(event):
 func _physics_process(delta):
 	if !pdl_activated and !unloading_energy and energy < max_energy:
 		energy += recharge_rate * delta
+	if pdl_activated and pdl_level > 0:
+		energy += (recharge_rate * delta)/(4-pdl_level*.9)
 	if unloading_energy:
 		energy -= recharge_rate * delta * 2
 		if energy <= 0:
@@ -158,7 +186,7 @@ func _on_Player_body_entered(body):
 
 func shoot_pewpew():
 	if energy > 0:
-		energy -= 1
+		energy -= pewpew_cost
 		var p = pewpew.instance()
 		p.edge_warp_thresh = edge_warp_thresh
 		p.position = $Muzzle.global_position

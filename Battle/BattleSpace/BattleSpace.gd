@@ -16,8 +16,8 @@ func _input(event):
 		$CSpotNE.position = Vector2((size/2)*cspot_offset,(-size/2)*cspot_offset)
 		$CSpotSW.position = Vector2((-size/2)*cspot_offset,(size/2)*cspot_offset)
 		$CSpotSE.position = Vector2((size/2)*cspot_offset,(size/2)*cspot_offset)
+		print(size)
 		for child in get_children():
-			print(size)
 			if child.is_in_group('enemy') or child.is_in_group('player'):
 				if child.is_in_group('enemy'):
 					child.force_scale(size)
@@ -38,10 +38,15 @@ func _input(event):
 				child.edge_warp_thresh = size/2
 
 func _ready():
+	var player_durability = clamp(PlayerDataHandler.PlayerData.ship.hp * 1.3 + PlayerDataHandler.PlayerData.ship.shield * 3, 5, 65)
+	size = -65 * player_durability + 4500
+	var cam_margin = range_lerp(size, 4500, 500, 300, 40)
+	$Player.edge_warp_thresh = size/2
 	$CanvasLayer/UI/Energy.rect_size.x = 50
 	$CanvasLayer/UI/Defence/HP.rect_size.x = 50
 	$CanvasLayer/UI/Defence/Shield.rect_size.x = 50
 	$Camera2D.add_target($CSpotNW)
+	$Camera2D.margin = Vector2(cam_margin,cam_margin)
 	$CSpotNW.position = Vector2((-size/2)*cspot_offset,(-size/2)*cspot_offset)
 	$CSpotNE.position = Vector2((size/2)*cspot_offset,(-size/2)*cspot_offset)
 	$CSpotSW.position = Vector2((-size/2)*cspot_offset,(size/2)*cspot_offset)
@@ -62,7 +67,7 @@ func _process(delta):
 	else:
 		$CanvasLayer/UI/Energy.color = Color.blue
 	$CanvasLayer/UI/Energy.rect_size.x = $Player.energy * 50
-	$CanvasLayer/UI/Defence/HP.rect_size.x = $Player.hp * 50
+	$CanvasLayer/UI/Defence/HP.rect_size.x = $Player.hp * 30
 	$CanvasLayer/UI/Defence/Shield.rect_size.x = $Player.shields * 50
 	
 func _draw():

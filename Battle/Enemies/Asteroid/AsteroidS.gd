@@ -13,4 +13,4 @@ func take_dmg(_n):
 func force_scale(size):
 	$Sprite.scale.x = range_lerp(size, 90, 1000, 0, .5)
 	$Sprite.scale.y = range_lerp(size, 90, 1000, 0, .5)
-	$CollisionShape2D.shape.radius = (size * 15 / 1000)
+	$CollisionShape2D.shape.radius = (size / 100)

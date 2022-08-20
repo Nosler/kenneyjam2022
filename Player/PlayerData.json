@@ -4,13 +4,13 @@
 	"energy_max":10,
 	"exp":0,
 	"handling":0,
-	"hp":5,
+	"hp":35,
 	"hp_max":5,
 	"level":1,
-	"shield":2,
+	"shield":12,
 	"shield_max":2,
 	"paperclips":1000,
-	"missiles":0,
+	"missiles":50,
 	"pewpews":{
 		"enabled":true,
 		"energy_cost":0,
@@ -18,21 +18,21 @@
 		"projectile_speed":0
 	},	
 	"point_defense":{
-		"enabled":false,
-		"energy_cost":0,
-		"fire_rate":0,
-		"energy_regen":0
+		"enabled":true,
+		"energy_cost":2,
+		"fire_rate":3,
+		"energy_regen":2
 	},
 	"ion_cannon":{
-		"enabled":false,
+		"enabled":true,
 		"length":0,
 		"sweep_range":0,
 		"sweep_speed":0
 	},
 	"missile_launcher":{
-		"enabled":false,
+		"enabled":true,
 		"projectile_speed":0,
 		"cluster":0,
-		"lockon_speed":0
+		"lockon_speed":3
 	}
 }}
