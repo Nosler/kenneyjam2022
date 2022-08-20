@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Battle/BattleSpace/BattleSpace.gd" type="Script" id=1]
 [ext_resource path="res://Battle/BattleSpace/GodotRecipesMultitarget.gd" type="Script" id=2]
 [ext_resource path="res://Battle/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Battle/BattleSpace/DrawDot.gd" type="Script" id=4]
+[ext_resource path="res://Battle/Enemies/Turret/Turret.tscn" type="PackedScene" id=5]
 
 [node name="BattleSpace" type="Node2D"]
 script = ExtResource( 1 )
@@ -91,6 +92,9 @@ script = ExtResource( 4 )
 [node name="CSpotSE" type="Position2D" parent="."]
 visible = false
 script = ExtResource( 4 )
+
+[node name="Turret" parent="." instance=ExtResource( 5 )]
+position = Vector2( 351, 0 )
 
 [connection signal="ready" from="Player" to="." method="_on_Player_ready"]
 [connection signal="tree_exited" from="Player" to="." method="_on_Player_tree_exited"]
