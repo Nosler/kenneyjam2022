@@ -17,14 +17,14 @@ func _ready():
 		Lines.insert(Lines.size(), line)
 		
 	Display.text = Lines[CurrentLine]
-	
+
 
 func load_dialogue():
-	
 	# Creating & opening json file with opening text
 	var file = File.new()
 	
 	if not file.file_exists(DialogueFilepath):
+		print("could not find DialogueFilepath")
 		return
 
 	file.open(DialogueFilepath, file.READ)
@@ -34,6 +34,7 @@ func load_dialogue():
 	var data_parse = JSON.parse(text)
 
 	if data_parse.error != OK:
+		print("json data parse returned error in load_dialogue function")
 		return
 
 	# Setting DialogueData for other functions & closing file
