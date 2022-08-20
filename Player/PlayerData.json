@@ -14,7 +14,7 @@
 	"pewpews":{
 		"enabled":true,
 		"energy_cost":0,
-		"lifespan":0,
+		"projectile_range":0,
 		"projectile_speed":0
 	},	
 	"point_defense":{
