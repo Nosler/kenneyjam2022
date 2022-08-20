@@ -1,9 +1,9 @@
 extends MarginContainer
 
+const PlayerDataFilepath = "res://Player/PlayerData.json"
+const XpRate = 1.2 # Default 1.2
 
-var PlayerDataFilepath = "res://Player/PlayerData.json"
 var PlayerData = { }
-var XpRate = 1.2
 var xp_to_level = 0
 
 func _ready():
@@ -15,15 +15,15 @@ func _ready():
 	xp_to_level = round(2* ((1 - pow(XpRate, PlayerData.ship.level)) / (1 - XpRate)))
 	refresh_textboxes()
 
-	# Checks if the player can level
-	check_ready_level_up()
+	# Sets button visibility based on check_ready_level_up function's output
+	buttons_visible(check_ready_level_up())
 
-
+# Reads PlayerData.json and turns it into PlayerData dict
 func load_attributes():
 	var file = File.new()
 
 	if not file.file_exists(PlayerDataFilepath):
-		print("could not find PlayerDataFilepath")
+		print("could not find given PlayerData filepath")
 		return
 
 	file.open(PlayerDataFilepath, File.READ)
@@ -40,6 +40,7 @@ func load_attributes():
 	file.close()
 
 
+# Writes the PlayerData.json file with PlayerData var
 func save_attributes():
 	var file = File.new()
 	
@@ -49,6 +50,7 @@ func save_attributes():
 	file.close()
 
 
+# Sets the GUI buttons's visibility to given input
 func buttons_visible(toggle):
 	var hp_button = $Display/HullPoints/HPButton
 	var shield_button = $Display/ShieldPoints/ShieldButton
@@ -56,13 +58,15 @@ func buttons_visible(toggle):
 	var handling_button = $Display/Handling/HandlingButton
 	var battery_button = $Display/Battery/BatteryButton
 	
-	hp_button.visible = toggle
-	shield_button.visible = toggle
-	accel_button.visible = toggle
-	handling_button.visible = toggle
-	battery_button.visible = toggle
+	if toggle is bool:
+		hp_button.visible = toggle
+		shield_button.visible = toggle
+		accel_button.visible = toggle
+		handling_button.visible = toggle
+		battery_button.visible = toggle
 
 
+# Rewrites the text for each label updated attribute values
 func refresh_textboxes():
 	var attributes = PlayerData.ship
 	var LvlLabel = $Display/LevelLabel
@@ -71,24 +75,21 @@ func refresh_textboxes():
 	var ShieldLabel = $Display/ShieldPoints/ShieldLabel
 	var AccelLabel = $Display/Acceleration/AccelLabel
 	var HandleLabel = $Display/Handling/HandlingLabel
+	var BattLabel = $Display/Battery/BatteryLabel
 
-	LvlLabel.text = "Level: %s" % attributes.level
-	ExpLabel.text = "Exp: %s/%s" % [attributes.exp, xp_to_level]
-	HullLabel.text = "Hull Points: %s/%s" % [attributes.hp, attributes.hp_max]
-	ShieldLabel.text = "Shield Points: %s/%s" % [attributes.shield, attributes.shield_max]
-	AccelLabel.text = "Acceleration: %s" % attributes.acceleration
-	HandleLabel.text = "Handling: %s" % attributes.handling
+	# Don't remove spaces in strings!!
+	LvlLabel.text = "  Level: %s" % attributes.level
+	AccelLabel.text = "  Acceleration: %s" % attributes.acceleration
+	HandleLabel.text = "  Handling: %s" % attributes.handling
+	ExpLabel.text = "  Exp: %s/%s" % [attributes.exp, xp_to_level]
+	HullLabel.text = "  Hull Points: %s/%s" % [attributes.hp, attributes.hp_max]
+	ShieldLabel.text = "  Shield Points: %s/%s" % [attributes.shield, attributes.shield_max]
+	BattLabel.text = "  Energy: %s/%s" % [attributes.energy, attributes.energy_max]
 
 
-func check_ready_level_up():
-	var xp = PlayerData.ship.exp
-	xp_to_level = round(2* ((1 - pow(XpRate, PlayerData.ship.level)) / (1 - XpRate)))
-	
-	if xp >= xp_to_level:
-		buttons_visible(true)
-
-	else:
-		buttons_visible(false)
+# Checks if the player has enough experience to gain the next level
+func check_ready_level_up() -> bool: 
+	return PlayerData.ship.exp >= round(2* ((1 - pow(XpRate, PlayerData.ship.level)) / (1 - XpRate)))
 
 
 func level_up():
@@ -96,10 +97,13 @@ func level_up():
 	PlayerData.ship.level += 1
 	
 	save_attributes()
-	check_ready_level_up()
 	refresh_textboxes()
+	
+	# Sets button visibility based on check_ready_level_up function's output
+	buttons_visible(check_ready_level_up())
 
 
+# Button signal handling
 func _on_HPButton_pressed() -> void:
 	PlayerData.ship.hp_max += 1
 	PlayerData.ship.hp += 1
@@ -126,3 +130,7 @@ func _on_BatteryButton_pressed() -> void:
 	PlayerData.ship.energy_max += 1
 	PlayerData.ship.energy += 1
 	level_up()
+
+
+func _on_ShopButton_pressed() -> void:
+	get_tree().change_scene("res://HUBScreen/Shop.tscn")

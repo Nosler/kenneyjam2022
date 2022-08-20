@@ -1,0 +1,743 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://HUBScreen/assets/star_09.png" type="Texture" id=1]
+[ext_resource path="res://HUBScreen/assets/star_02.png" type="Texture" id=2]
+[ext_resource path="res://HUBScreen/assets/star_08.png" type="Texture" id=3]
+[ext_resource path="res://HUBScreen/assets/planet02.png" type="Texture" id=4]
+[ext_resource path="res://HUBScreen/assets/star_06.png" type="Texture" id=5]
+[ext_resource path="res://HUBScreen/assets/planet09.png" type="Texture" id=6]
+[ext_resource path="res://HUBScreen/assets/star_07.png" type="Texture" id=7]
+[ext_resource path="res://Battle/Player/playership.png" type="Texture" id=8]
+[ext_resource path="res://Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://HUBScreen/Shop.gd" type="Script" id=10]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0.45098, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.639216, 0, 1, 1 )
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 50
+font_data = ExtResource( 9 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.921569, 0.231373, 1, 1 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 40
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 30
+font_data = ExtResource( 9 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.921569, 0.231373, 1, 1 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 36
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 34
+font_data = ExtResource( 9 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 10 )
+
+[node name="ShipIcon" type="MarginContainer" parent="."]
+margin_right = 400.0
+margin_bottom = 400.0
+
+[node name="Panel" type="Panel" parent="ShipIcon"]
+margin_right = 400.0
+margin_bottom = 400.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="Playership" type="Sprite" parent="ShipIcon"]
+position = Vector2( 200, 200 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="SpaceGraphic" type="MarginContainer" parent="."]
+margin_left = 400.0
+margin_right = 1920.0
+margin_bottom = 400.0
+
+[node name="Panel" type="Panel" parent="SpaceGraphic"]
+margin_right = 1520.0
+margin_bottom = 400.0
+custom_styles/panel = SubResource( 5 )
+
+[node name="Star08" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 740, 44 )
+scale = Vector2( 0.162109, 0.162109 )
+texture = ExtResource( 3 )
+
+[node name="Star02" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 1375, 105 )
+scale = Vector2( 0.21875, 0.21875 )
+texture = ExtResource( 2 )
+
+[node name="Planet02" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 350, 400 )
+scale = Vector2( 0.382812, 0.382812 )
+texture = ExtResource( 4 )
+
+[node name="Planet09" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 1026, 146 )
+scale = Vector2( 0.0875, 0.0875 )
+texture = ExtResource( 6 )
+
+[node name="Star09" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 76, 56 )
+scale = Vector2( 0.113769, 0.113769 )
+texture = ExtResource( 1 )
+
+[node name="Star07" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 656, 307 )
+scale = Vector2( 0.131836, 0.131836 )
+texture = ExtResource( 7 )
+
+[node name="Star06" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 1218, 344 )
+scale = Vector2( 0.189453, 0.189453 )
+texture = ExtResource( 5 )
+
+[node name="Star10" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 407, 99 )
+scale = Vector2( 0.0800781, 0.0800781 )
+texture = ExtResource( 5 )
+
+[node name="Star11" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 105, 223 )
+scale = Vector2( 0.0917969, 0.0917969 )
+texture = ExtResource( 5 )
+
+[node name="Star03" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 1055, 39 )
+scale = Vector2( 0.109375, 0.109375 )
+texture = ExtResource( 2 )
+
+[node name="Star12" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 904, 209 )
+scale = Vector2( 0.0732422, 0.0732422 )
+texture = ExtResource( 3 )
+
+[node name="Star04" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 45, 360 )
+scale = Vector2( 0.0488281, 0.0488281 )
+texture = ExtResource( 2 )
+
+[node name="Star05" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 1167, 153 )
+scale = Vector2( 0.0488281, 0.0488281 )
+texture = ExtResource( 2 )
+
+[node name="Star13" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 619, 138 )
+scale = Vector2( 0.0488281, 0.0488281 )
+texture = ExtResource( 2 )
+
+[node name="Star14" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 837, 349 )
+scale = Vector2( 0.0488281, 0.0488281 )
+texture = ExtResource( 2 )
+
+[node name="Star15" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 1279, 48 )
+scale = Vector2( 0.0488281, 0.0488281 )
+texture = ExtResource( 2 )
+
+[node name="Star16" type="Sprite" parent="SpaceGraphic/Panel"]
+position = Vector2( 1385, 308 )
+scale = Vector2( 0.0488281, 0.0488281 )
+texture = ExtResource( 2 )
+
+[node name="Buttons" type="MarginContainer" parent="."]
+margin_left = 1400.0
+margin_top = 400.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="Panel" type="Panel" parent="Buttons"]
+margin_right = 520.0
+margin_bottom = 680.0
+custom_styles/panel = SubResource( 6 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
+margin_right = 520.0
+margin_bottom = 680.0
+rect_pivot_offset = Vector2( -606, -72 )
+
+[node name="ReturnButton" type="Button" parent="Buttons/VBoxContainer"]
+margin_right = 520.0
+margin_bottom = 340.0
+rect_min_size = Vector2( 0, 340 )
+custom_fonts/font = SubResource( 7 )
+text = "Return"
+
+[node name="NameLabels" type="MarginContainer" parent="."]
+margin_top = 400.0
+margin_right = 300.0
+margin_bottom = 746.0
+rect_min_size = Vector2( 0, 346 )
+
+[node name="Panel" type="Panel" parent="NameLabels"]
+margin_right = 300.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 346 )
+custom_styles/panel = SubResource( 8 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NameLabels"]
+margin_right = 300.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 346 )
+custom_constants/separation = 0
+
+[node name="PewPewLabel" type="Label" parent="NameLabels/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 300, 150 )
+custom_fonts/font = SubResource( 9 )
+text = "Lasers"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="PointDefenseLabel" type="Label" parent="NameLabels/VBoxContainer"]
+margin_top = 150.0
+margin_right = 300.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 300, 150 )
+custom_fonts/font = SubResource( 9 )
+text = "Point Defense"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="IonCannonLabel" type="Label" parent="NameLabels/VBoxContainer"]
+margin_top = 300.0
+margin_right = 300.0
+margin_bottom = 450.0
+rect_min_size = Vector2( 300, 150 )
+custom_fonts/font = SubResource( 9 )
+text = "Ion Cannon"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="MissileLabel" type="Label" parent="NameLabels/VBoxContainer"]
+margin_top = 450.0
+margin_right = 300.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 300, 150 )
+custom_fonts/font = SubResource( 9 )
+text = "Missile Launcher"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="PewPewUpgradeTrackers" type="MarginContainer" parent="."]
+margin_left = 300.0
+margin_top = 400.0
+margin_right = 340.0
+margin_bottom = 440.0
+rect_min_size = Vector2( 550, 150 )
+
+[node name="Panel" type="Panel" parent="PewPewUpgradeTrackers"]
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+
+[node name="PewPewLabels" type="VBoxContainer" parent="PewPewUpgradeTrackers"]
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_constants/separation = 0
+
+[node name="PewPew1" type="Label" parent="PewPewUpgradeTrackers/PewPewLabels"]
+margin_right = 550.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Energy Cost: 0/3"
+align = 1
+valign = 1
+
+[node name="PewPew2" type="Label" parent="PewPewUpgradeTrackers/PewPewLabels"]
+margin_top = 50.0
+margin_right = 550.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Range: 0/3"
+align = 1
+valign = 1
+
+[node name="PewPew3" type="Label" parent="PewPewUpgradeTrackers/PewPewLabels"]
+margin_top = 100.0
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Laser Speed: 0/3"
+align = 1
+valign = 1
+
+[node name="PointDefenseUpgradeTrackers2" type="MarginContainer" parent="."]
+margin_left = 300.0
+margin_top = 550.0
+margin_right = 850.0
+margin_bottom = 700.0
+rect_min_size = Vector2( 550, 150 )
+
+[node name="Panel" type="Panel" parent="PointDefenseUpgradeTrackers2"]
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+
+[node name="PointDefenseLabels" type="VBoxContainer" parent="PointDefenseUpgradeTrackers2"]
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_constants/separation = 0
+
+[node name="PointDefense1" type="Label" parent="PointDefenseUpgradeTrackers2/PointDefenseLabels"]
+margin_right = 550.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Energy Cost: 0/3"
+align = 1
+valign = 1
+
+[node name="PointDefense2" type="Label" parent="PointDefenseUpgradeTrackers2/PointDefenseLabels"]
+margin_top = 50.0
+margin_right = 550.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Fire Rate: 0/3"
+align = 1
+valign = 1
+
+[node name="PointDefense3" type="Label" parent="PointDefenseUpgradeTrackers2/PointDefenseLabels"]
+margin_top = 100.0
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Energy Regen: 0/3"
+align = 1
+valign = 1
+
+[node name="IonCannonUpgradeTrackers3" type="MarginContainer" parent="."]
+margin_left = 300.0
+margin_top = 700.0
+margin_right = 850.0
+margin_bottom = 850.0
+rect_min_size = Vector2( 550, 150 )
+
+[node name="Panel" type="Panel" parent="IonCannonUpgradeTrackers3"]
+margin_right = 550.0
+margin_bottom = 150.0
+
+[node name="IonCannonLabels" type="VBoxContainer" parent="IonCannonUpgradeTrackers3"]
+margin_right = 550.0
+margin_bottom = 150.0
+custom_constants/separation = 0
+
+[node name="IonCannon1" type="Label" parent="IonCannonUpgradeTrackers3/IonCannonLabels"]
+margin_right = 550.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Beam Length: 0/3"
+align = 1
+valign = 1
+
+[node name="IonCannon2" type="Label" parent="IonCannonUpgradeTrackers3/IonCannonLabels"]
+margin_top = 50.0
+margin_right = 550.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Sweep Range: 0/3"
+align = 1
+valign = 1
+
+[node name="IonCannon3" type="Label" parent="IonCannonUpgradeTrackers3/IonCannonLabels"]
+margin_top = 100.0
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Sweep Speed: 0/3"
+align = 1
+valign = 1
+
+[node name="MissileUpgradeTrackers4" type="MarginContainer" parent="."]
+margin_left = 300.0
+margin_top = 850.0
+margin_right = 850.0
+margin_bottom = 1000.0
+rect_min_size = Vector2( 550, 150 )
+
+[node name="Panel" type="Panel" parent="MissileUpgradeTrackers4"]
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+
+[node name="MissileLabels" type="VBoxContainer" parent="MissileUpgradeTrackers4"]
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_constants/separation = 0
+
+[node name="Missile1" type="Label" parent="MissileUpgradeTrackers4/MissileLabels"]
+margin_right = 550.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Missile Speed: 0/3"
+align = 1
+valign = 1
+
+[node name="Missile2" type="Label" parent="MissileUpgradeTrackers4/MissileLabels"]
+margin_top = 50.0
+margin_right = 550.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Cluster: 0/3"
+align = 1
+valign = 1
+
+[node name="Missile3" type="Label" parent="MissileUpgradeTrackers4/MissileLabels"]
+margin_top = 100.0
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 10 )
+text = "Lock-on Speed: 0/3"
+align = 1
+valign = 1
+
+[node name="PewPewShop" type="MarginContainer" parent="."]
+margin_left = 850.0
+margin_top = 400.0
+margin_right = 1100.0
+margin_bottom = 550.0
+rect_min_size = Vector2( 250, 150 )
+
+[node name="Panel" type="Panel" parent="PewPewShop"]
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_styles/panel = SubResource( 11 )
+
+[node name="GridContainer" type="GridContainer" parent="PewPewShop"]
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 2
+
+[node name="Button" type="Button" parent="PewPewShop/GridContainer"]
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label" type="Label" parent="PewPewShop/GridContainer"]
+margin_left = 100.0
+margin_right = 250.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="Button2" type="Button" parent="PewPewShop/GridContainer"]
+margin_top = 50.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label2" type="Label" parent="PewPewShop/GridContainer"]
+margin_left = 100.0
+margin_top = 50.0
+margin_right = 250.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="Button3" type="Button" parent="PewPewShop/GridContainer"]
+margin_top = 100.0
+margin_right = 100.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label3" type="Label" parent="PewPewShop/GridContainer"]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="PointDefenseShop" type="MarginContainer" parent="."]
+margin_left = 850.0
+margin_top = 550.0
+margin_right = 1100.0
+margin_bottom = 700.0
+rect_min_size = Vector2( 250, 150 )
+
+[node name="Panel" type="Panel" parent="PointDefenseShop"]
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_styles/panel = SubResource( 11 )
+
+[node name="GridContainer" type="GridContainer" parent="PointDefenseShop"]
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 2
+
+[node name="Button" type="Button" parent="PointDefenseShop/GridContainer"]
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label" type="Label" parent="PointDefenseShop/GridContainer"]
+margin_left = 100.0
+margin_right = 250.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="Button2" type="Button" parent="PointDefenseShop/GridContainer"]
+margin_top = 50.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label2" type="Label" parent="PointDefenseShop/GridContainer"]
+margin_left = 100.0
+margin_top = 50.0
+margin_right = 250.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="Button3" type="Button" parent="PointDefenseShop/GridContainer"]
+margin_top = 100.0
+margin_right = 100.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label3" type="Label" parent="PointDefenseShop/GridContainer"]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="IonCannonShop" type="MarginContainer" parent="."]
+margin_left = 850.0
+margin_top = 700.0
+margin_right = 1100.0
+margin_bottom = 850.0
+rect_min_size = Vector2( 250, 150 )
+
+[node name="Panel" type="Panel" parent="IonCannonShop"]
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_styles/panel = SubResource( 11 )
+
+[node name="GridContainer" type="GridContainer" parent="IonCannonShop"]
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 2
+
+[node name="Button" type="Button" parent="IonCannonShop/GridContainer"]
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label" type="Label" parent="IonCannonShop/GridContainer"]
+margin_left = 100.0
+margin_right = 250.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="Button2" type="Button" parent="IonCannonShop/GridContainer"]
+margin_top = 50.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label2" type="Label" parent="IonCannonShop/GridContainer"]
+margin_left = 100.0
+margin_top = 50.0
+margin_right = 250.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="Button3" type="Button" parent="IonCannonShop/GridContainer"]
+margin_top = 100.0
+margin_right = 100.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label3" type="Label" parent="IonCannonShop/GridContainer"]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="MissileShop" type="MarginContainer" parent="."]
+margin_left = 850.0
+margin_top = 850.0
+margin_right = 1100.0
+margin_bottom = 1000.0
+rect_min_size = Vector2( 250, 150 )
+
+[node name="Panel" type="Panel" parent="MissileShop"]
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_styles/panel = SubResource( 11 )
+
+[node name="GridContainer" type="GridContainer" parent="MissileShop"]
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 2
+
+[node name="Button" type="Button" parent="MissileShop/GridContainer"]
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label" type="Label" parent="MissileShop/GridContainer"]
+margin_left = 100.0
+margin_right = 250.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="Button2" type="Button" parent="MissileShop/GridContainer"]
+margin_top = 50.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label2" type="Label" parent="MissileShop/GridContainer"]
+margin_left = 100.0
+margin_top = 50.0
+margin_right = 250.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="Button3" type="Button" parent="MissileShop/GridContainer"]
+margin_top = 100.0
+margin_right = 100.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 100, 50 )
+custom_fonts/font = SubResource( 12 )
+text = "+"
+
+[node name="Label3" type="Label" parent="MissileShop/GridContainer"]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "$000"
+align = 1
+valign = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 1100.0
+margin_top = 400.0
+margin_right = 1140.0
+margin_bottom = 440.0
+rect_min_size = Vector2( 300, 450 )
+
+[connection signal="pressed" from="Buttons/VBoxContainer/ReturnButton" to="." method="_on_ReturnButton_pressed"]

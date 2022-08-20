@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/star_07.png-400d960fdd48a0205349cced515fd27d.stex"
+path="res://.import/star_08.png-b1361282061b8f769e08f12db8882854.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://HUDScreen/assets/star_07.png"
-dest_files=[ "res://.import/star_07.png-400d960fdd48a0205349cced515fd27d.stex" ]
+source_file="res://HUBScreen/assets/star_08.png"
+dest_files=[ "res://.import/star_08.png-b1361282061b8f769e08f12db8882854.stex" ]
 
 [params]
 
