@@ -1,15 +1,97 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Battle/BattleSpace/BattleSpace.gd" type="Script" id=1]
+[ext_resource path="res://Battle/BattleSpace/GodotRecipesMultitarget.gd" type="Script" id=2]
 [ext_resource path="res://Battle/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Battle/BattleSpace/DrawDot.gd" type="Script" id=4]
 
 [node name="BattleSpace" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+zoom = Vector2( 5, 5 )
+script = ExtResource( 2 )
+move_speed = 1.0
+zoom_speed = 1.0
+min_zoom = 0.1
+max_zoom = 100000
+margin = Vector2( 50, 50 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 contacts_reported = 1
 
+[node name="CheckForEnemies" type="Timer" parent="."]
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="YouWin" type="Label" parent="CanvasLayer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -39.0
+margin_top = -7.0
+margin_right = 39.0
+margin_bottom = 7.0
+text = "YOU WIN :D"
+align = 1
+
+[node name="YouLose" type="Label" parent="CanvasLayer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -39.0
+margin_top = -7.0
+margin_right = 39.0
+margin_bottom = 7.0
+text = "YOU LOSE D:"
+align = 1
+
+[node name="UI" type="VBoxContainer" parent="CanvasLayer"]
+
+[node name="Energy" type="ColorRect" parent="CanvasLayer/UI"]
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+color = Color( 0.00784314, 0, 1, 1 )
+
+[node name="Defence" type="HBoxContainer" parent="CanvasLayer/UI"]
+margin_top = 14.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 0
+
+[node name="HP" type="ColorRect" parent="CanvasLayer/UI/Defence"]
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+color = Color( 1, 0, 0, 1 )
+
+[node name="Shield" type="ColorRect" parent="CanvasLayer/UI/Defence"]
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+color = Color( 0.0117647, 0.952941, 1, 1 )
+
+[node name="CSpotNW" type="Position2D" parent="."]
+visible = false
+script = ExtResource( 4 )
+
+[node name="CSpotNE" type="Position2D" parent="."]
+visible = false
+script = ExtResource( 4 )
+
+[node name="CSpotSW" type="Position2D" parent="."]
+visible = false
+script = ExtResource( 4 )
+
+[node name="CSpotSE" type="Position2D" parent="."]
+visible = false
+script = ExtResource( 4 )
+
 [connection signal="ready" from="Player" to="." method="_on_Player_ready"]
+[connection signal="tree_exited" from="Player" to="." method="_on_Player_tree_exited"]
+[connection signal="timeout" from="CheckForEnemies" to="." method="_on_CheckForEnemies_timeout"]
