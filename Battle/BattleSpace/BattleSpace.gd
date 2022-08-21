@@ -5,6 +5,7 @@ var asteroidS = load("res://Battle/Enemies/Asteroid/AsteroidS.tscn")
 var asteroidL = load("res://Battle/Enemies/Asteroid/AsteroidL.tscn")
 var turret = load("res://Battle/Enemies/Turret/Turret.tscn")
 var kamikazeboy = load("res://Battle/Enemies/KamikazeBoy/KamikazeBoy.tscn")
+var star = load("res://Battle/BattleSpace/Star.tscn")
 
 var size = 2300
 var col = Color.indigo
@@ -78,7 +79,7 @@ func _ready():
 		col = Color.green
 		$CanvasLayer/BossHP.visible = true
 		spawn_rivalman()
-
+	spawn_stars()
 
 func _process(delta):
 	if !lost:
@@ -129,6 +130,24 @@ func spawn_smol_asteroid():
 	a.position.x = rand.randf_range(-size/2, size/2)
 	add_child(a)
 
+func spawn_stars():
+	var rand = RandomNumberGenerator.new()
+	var star_colors = [Color.blue, Color.indigo, Color.aqua, Color.purple, Color.green]
+	var ss = range_lerp(size/2, 4500, 500, .8, .2)
+	rand.randomize()
+	for i in range(1000):
+		var s = star.instance()
+		s.modulate = star_colors[randi() % star_colors.size()-1]
+		s.modulate.a = rand.randf_range(0.0, .5)
+		s.scale = Vector2(ss,ss)
+		s.frame = randi() % 5
+		if randi() % 3 < 2:
+			s.playing = true
+			s.speed_scale = rand.randf_range(0.0, 0.05)
+		s.position = Vector2(rand.randf_range(-5000, 5000), rand.randf_range(-5000, 5000))
+		if !Rect2(Vector2(-size/2 - 10, -size/2 - 10), Vector2(size + 10, size + 10)).has_point(s.position):
+			add_child(s)
+	
 func spawn_turret():
 	var rand = RandomNumberGenerator.new()
 	rand.randomize()

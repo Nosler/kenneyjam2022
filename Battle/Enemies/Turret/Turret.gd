@@ -7,11 +7,11 @@ var state = 'loading'
 var rotate_speed = PI/69
 var bullet_speed = 1000
 var edge_warp_thresh
-var hp = 45
+var hp = 55
 var area_color = Color.blue
 
 func _ready():
-	area_color.a = .1
+	area_color.a = .05
 	$LoadingTimer.wait_time = 3
 
 func _draw():

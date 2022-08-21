@@ -5,7 +5,7 @@ var speed = 1000
 var target = null
 var area_color = Color.green
 func _ready():
-	area_color.a = .1
+	area_color.a = .05
 	
 func _draw():
 	draw_circle(Vector2.ZERO, $Area2D/CollisionShape2D.shape.radius, area_color)
