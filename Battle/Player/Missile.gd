@@ -41,7 +41,7 @@ func _physics_process(delta):
 		'exploded':
 			for b in $LockOnZone.get_overlapping_bodies():
 				if b.is_in_group('enemy'):
-					b.take_dmg(1)
+					b.take_dmg(.5)
 	update()
 
 func _on_ArmingTimer_timeout():

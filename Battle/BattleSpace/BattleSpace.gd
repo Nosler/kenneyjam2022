@@ -1,11 +1,13 @@
 extends Node2D
 
+var rivalman = load("res://Battle/Enemies/RivalMan/RivalMan.tscn")
 var asteroidS = load("res://Battle/Enemies/Asteroid/AsteroidS.tscn")
 var asteroidL = load("res://Battle/Enemies/Asteroid/AsteroidL.tscn")
 var size = 2300
 var col = Color.red
 var cspot_offset = 1
 var lost = false
+var is_boss_level = false
 
 func _input(event):
 	if event.is_action_pressed("debug_spawn_asteroid"):
@@ -57,8 +59,8 @@ func _ready():
 	$Camera2D.add_target($CSpotSW)
 	$Camera2D.add_target($CSpotSE)
 	EncounterHandler.gen_encounter(3)
-	print(EncounterHandler.encounterdata.encounter)
-	
+
+	is_boss_level = true #EncounterHandler.encounterdata.is_boss_level
 	for i in range(EncounterHandler.encounterdata.encounter.lg_asteroids):
 		spawn_large_asteroid()
 	for i in range(EncounterHandler.encounterdata.encounter.sm_asteroids):
@@ -67,6 +69,9 @@ func _ready():
 		spawn_turret()
 	for i in range(EncounterHandler.encounterdata.encounter.kamikazes):
 		spawn_kamikaze()
+	if is_boss_level:
+		$CanvasLayer/BossHP.visible = true
+		spawn_rivalman()
 
 func _process(delta):
 	if !lost:
@@ -82,6 +87,8 @@ func _process(delta):
 		$CanvasLayer/UI/Energy.rect_size.x = $Player.energy * 50
 		$CanvasLayer/UI/Defence/HP.rect_size.x = $Player.hp * 30
 		$CanvasLayer/UI/Defence/Shield.rect_size.x = $Player.shields * 50
+	if is_boss_level and is_instance_valid($RivalMan):
+		$CanvasLayer/BossHP.rect_size.x = $RivalMan.hp * 5
 	
 func _draw():
 	draw_rect(Rect2(-size/2, -size/2, size, size), col, false, 1, false)
@@ -121,6 +128,14 @@ func spawn_turret():
 func spawn_kamikaze():
 	pass
 
+func spawn_rivalman():
+	$Player.position = Vector2(0, size/3)
+	var r = rivalman.instance()
+	r.force_scale(size)
+	r.position = Vector2.ZERO
+	r.connect("destroyed", self, "win_game")
+	add_child(r)
+
 func on_large_asteroid_destroyed(p):
 	var rand = RandomNumberGenerator.new()
 	rand.randomize()
@@ -152,6 +167,9 @@ func win():
 	$CanvasLayer/YouWin.visible = true
 	get_tree().paused = true
 
+func win_game():
+	print("u win")
+	
 func lose():
 	$Camera2D.remove_target($Player)
 	lost = true

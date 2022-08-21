@@ -21,4 +21,6 @@ shape = SubResource( 1 )
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="finished" from="HitSound" to="." method="_on_HitSound_finished"]
