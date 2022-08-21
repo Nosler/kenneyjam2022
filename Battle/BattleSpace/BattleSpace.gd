@@ -24,7 +24,6 @@ func _input(event):
 		$CSpotNE.position = Vector2((size/2)*cspot_offset,(-size/2)*cspot_offset)
 		$CSpotSW.position = Vector2((-size/2)*cspot_offset,(size/2)*cspot_offset)
 		$CSpotSE.position = Vector2((size/2)*cspot_offset,(size/2)*cspot_offset)
-		print(size)
 		for child in get_children():
 			if child.is_in_group('enemy') or child.is_in_group('player'):
 				if child.is_in_group('enemy'):
@@ -39,15 +38,14 @@ func _input(event):
 		$CSpotSW.position = Vector2((-size/2)*cspot_offset,(size/2)*cspot_offset)
 		$CSpotSE.position = Vector2((size/2)*cspot_offset,(size/2)*cspot_offset)
 		for child in get_children():
-			print(size)
 			if child.is_in_group('enemy') or child.is_in_group('player'):
 				if child.is_in_group('enemy'):
 					child.force_scale(size)
 				child.edge_warp_thresh = size/2
 
 func _ready():
+	EncounterHandler.load_encounter_data()
 	PlayerDataHandler.load_attributes()
-	print("Player Level %s" % PlayerDataHandler.PlayerData.ship.level)
 	var player_durability = clamp(PlayerDataHandler.PlayerData.ship.hp * 2 + PlayerDataHandler.PlayerData.ship.shield * 3.5, 5, 65)
 	size = -65 * player_durability + 4500
 	var cam_margin = range_lerp(size, 4500, 500, 300, 40)
@@ -65,8 +63,10 @@ func _ready():
 	$Camera2D.add_target($CSpotNE)
 	$Camera2D.add_target($CSpotSW)
 	$Camera2D.add_target($CSpotSE)
-	EncounterHandler.gen_encounter(PlayerDataHandler.PlayerData.ship.level)
+	
 	is_boss_level = EncounterHandler.encounterdata.encounter.boss
+	EncounterHandler.gen_encounter(PlayerDataHandler.PlayerData.ship.level)
+	
 	for i in range(EncounterHandler.encounterdata.encounter.lg_asteroids):
 		spawn_large_asteroid()
 	for i in range(EncounterHandler.encounterdata.encounter.sm_asteroids):
@@ -79,6 +79,7 @@ func _ready():
 		col = Color.green
 		$CanvasLayer/BossHP.visible = true
 		spawn_rivalman()
+		
 	spawn_stars()
 
 func _process(delta):

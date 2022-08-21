@@ -19,6 +19,8 @@ func take_dmg(n):
 	if hp <= 0:
 		emit_signal("destroyed")
 
+
+
 func _on_LaserTimer_timeout():
 	$LeftGun.shoot()
 	$RightGun.shoot()
