@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Battle/Player/spaceMissiles_010.png" type="Texture" id=1]
 [ext_resource path="res://Battle/Player/effect_yellow.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Battle/Player/explosionCrunch_003.ogg" type="AudioStream" id=13]
 [ext_resource path="res://Battle/Player/impactMetal_000.ogg" type="AudioStream" id=14]
 [ext_resource path="res://Battle/Player/confirmation_003.ogg" type="AudioStream" id=15]
+[ext_resource path="res://Battle/Player/thrusterFire_000.ogg" type="AudioStream" id=16]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 12.0
@@ -85,6 +86,8 @@ shape = SubResource( 4 )
 stream = ExtResource( 15 )
 
 [node name="Thrusting" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 16 )
+pitch_scale = 0.7
 
 [node name="Deploy" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 14 )

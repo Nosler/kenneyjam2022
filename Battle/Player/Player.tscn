@@ -103,6 +103,8 @@ stream = ExtResource( 10 )
 
 [node name="Cannon" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 13 )
+volume_db = -8.0
+pitch_scale = 0.5
 
 [node name="TakeDamage" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 12 )

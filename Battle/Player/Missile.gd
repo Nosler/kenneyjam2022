@@ -28,12 +28,13 @@ func _physics_process(delta):
 		'arming':
 			position += transform.y * 150 * delta
 		'seeking':
-			if is_instance_valid(target):
+			if is_instance_valid(target) and !target.is_dead:
 				look_at(target.position)
 				rotation = rotation + PI/2
 				position -= transform.y * speed * delta
 			else:
 				state = 'drifting'
+				$Thrusting.playing = false
 				$Sprite/Trail.visible = false
 		'drifting':
 			position -= transform.y * 150 * delta
@@ -47,6 +48,7 @@ func _on_ArmingTimer_timeout():
 	if state == 'arming':
 		if target:
 			state = 'seeking'
+			$Thrusting.playing = true
 			$Sprite/Trail.visible = true
 			$SeekingTimer.start()
 		else:
@@ -76,10 +78,13 @@ func _on_ExplosionTimer_timeout():
 func _on_LockOnZone_body_entered(body):
 	if state == 'arming' and body.is_in_group('enemy'):
 		potential_targets.append(body)
+		var temp_target = target
 		target = potential_targets[0]
 		for t in potential_targets:
 			if position.distance_to(t.position) < position.distance_to(target.position):
 				target = t
+		if temp_target != target:
+			$LockOn.play()
 		
 func _on_LockOnZone_body_exited(body):
 	if state == 'arming' and body.is_in_group('enemy'):

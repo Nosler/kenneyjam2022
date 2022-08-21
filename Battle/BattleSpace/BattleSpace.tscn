@@ -96,6 +96,12 @@ script = ExtResource( 4 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
+[node name="LoseTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="ready" from="Player" to="." method="_on_Player_ready"]
 [connection signal="tree_exited" from="Player" to="." method="_on_Player_tree_exited"]
+[connection signal="tree_exiting" from="Player" to="." method="_on_Player_tree_exiting"]
 [connection signal="timeout" from="CheckForEnemies" to="." method="_on_CheckForEnemies_timeout"]
+[connection signal="timeout" from="LoseTimer" to="." method="_on_LoseTimer_timeout"]

@@ -5,6 +5,7 @@ var asteroidL = load("res://Battle/Enemies/Asteroid/AsteroidL.tscn")
 var size = 2300
 var col = Color.red
 var cspot_offset = 1
+var lost = false
 
 func _input(event):
 	if event.is_action_pressed("debug_spawn_asteroid"):
@@ -55,21 +56,32 @@ func _ready():
 	$Camera2D.add_target($CSpotNE)
 	$Camera2D.add_target($CSpotSW)
 	$Camera2D.add_target($CSpotSE)
-	spawn_large_asteroid()
+	EncounterHandler.gen_encounter(3)
+	print(EncounterHandler.encounterdata.encounter)
+	
+	for i in range(EncounterHandler.encounterdata.encounter.lg_asteroids):
+		spawn_large_asteroid()
+	for i in range(EncounterHandler.encounterdata.encounter.sm_asteroids):
+		spawn_smol_asteroid()
+	for i in range(EncounterHandler.encounterdata.encounter.turrets):
+		spawn_turret()
+	for i in range(EncounterHandler.encounterdata.encounter.kamikazes):
+		spawn_kamikaze()
 
 func _process(delta):
-	update()
-	if $Player.pdl_activated:
-		$CanvasLayer/UI/Energy.color = Color.indigo
-	elif $Player.unloading_energy:
-		$CanvasLayer/UI/Energy.color = Color.green.lightened(.4)
-	elif ($Player.has_ioncannon and $Player.energy > 5):
-		$CanvasLayer/UI/Energy.color = Color.green
-	else:
-		$CanvasLayer/UI/Energy.color = Color.blue
-	$CanvasLayer/UI/Energy.rect_size.x = $Player.energy * 50
-	$CanvasLayer/UI/Defence/HP.rect_size.x = $Player.hp * 30
-	$CanvasLayer/UI/Defence/Shield.rect_size.x = $Player.shields * 50
+	if !lost:
+		update()
+		if $Player.pdl_activated:
+			$CanvasLayer/UI/Energy.color = Color.indigo
+		elif $Player.unloading_energy:
+			$CanvasLayer/UI/Energy.color = Color.green.lightened(.4)
+		elif ($Player.has_ioncannon and $Player.energy > 5):
+			$CanvasLayer/UI/Energy.color = Color.green
+		else:
+			$CanvasLayer/UI/Energy.color = Color.blue
+		$CanvasLayer/UI/Energy.rect_size.x = $Player.energy * 50
+		$CanvasLayer/UI/Defence/HP.rect_size.x = $Player.hp * 30
+		$CanvasLayer/UI/Defence/Shield.rect_size.x = $Player.shields * 50
 	
 func _draw():
 	draw_rect(Rect2(-size/2, -size/2, size, size), col, false, 1, false)
@@ -91,7 +103,25 @@ func spawn_large_asteroid():
 	a.position.x = rand.randf_range(-size/2, size/2)
 	add_child(a)
 
-func spawn_smol_asteroids(pos):
+func spawn_smol_asteroid():
+	var rand = RandomNumberGenerator.new()
+	rand.randomize()
+	var a = asteroidS.instance()
+	a.angular_velocity = rand.randf_range(0,50)
+	a.linear_velocity = Vector2(0, rand.randf_range(50, size/10)).rotated(rand.randf_range(0,360))
+	a.edge_warp_thresh = size/2
+	a.force_scale(size)
+	a.position.y = rand.randf_range(-size/2, size/2)
+	a.position.x = rand.randf_range(-size/2, size/2)
+	add_child(a)
+
+func spawn_turret():
+	pass
+
+func spawn_kamikaze():
+	pass
+
+func on_large_asteroid_destroyed(p):
 	var rand = RandomNumberGenerator.new()
 	rand.randomize()
 	for i in range(3):
@@ -99,12 +129,9 @@ func spawn_smol_asteroids(pos):
 		a.angular_velocity = rand.randf_range(5,60)
 		a.linear_velocity = Vector2(0, rand.randf_range(50, size/10)).rotated(rand.randf_range(0,360))
 		a.edge_warp_thresh = size/2
-		a.position = pos
+		a.position = p
 		a.force_scale(size)
 		add_child(a)
-	
-func on_large_asteroid_destroyed(p):
-	spawn_smol_asteroids(p)
 
 func _on_CheckForEnemies_timeout():
 	var children = get_children()
@@ -113,9 +140,23 @@ func _on_CheckForEnemies_timeout():
 			return
 	win()
 
-func _on_Player_tree_exited():
-	$CanvasLayer/YouLose.visible = true
+func _on_Player_tree_exiting():
+	lose()
 	
 func win():
+	PlayerDataHandler.PlayerData.ship.exp += EncounterHandler.encounterdata.encounter.reward_xp
+	PlayerDataHandler.PlayerData.ship.paperclips += EncounterHandler.encounterdata.encounter.reward_money
+	PlayerDataHandler.PlayerData.ship.hp = $Player.hp
+	PlayerDataHandler.PlayerData.ship.missiles = $Player.missiles
+	PlayerDataHandler.save_attributes()
 	$CanvasLayer/YouWin.visible = true
 	get_tree().paused = true
+
+func lose():
+	$Camera2D.remove_target($Player)
+	lost = true
+	$LoseTimer.start()
+	$CanvasLayer/YouLose.visible = true
+	
+func _on_LoseTimer_timeout():
+	get_tree().change_scene("res://MainMenu/MainMenu.tscn")
