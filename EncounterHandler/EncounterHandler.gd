@@ -141,4 +141,12 @@ func get_random(dict):
 
 
 func _pressed():
+	reset_encounter_data()
+	get_tree().change_scene("res://Battle/BattleSpace/BattleSpace.tscn")
+	
+	
+func _on_BossButton_pressed():
+	load_encounter_data()
+	encounterdata.boss = true
+	save_encounter_data()
 	get_tree().change_scene("res://Battle/BattleSpace/BattleSpace.tscn")

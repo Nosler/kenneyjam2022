@@ -368,3 +368,4 @@ valign = 1
 [connection signal="pressed" from="Attributes/Display/Acceleration/AccelButton" to="Attributes" method="_on_AccelButton_pressed"]
 [connection signal="pressed" from="Attributes/Display/Handling/HandlingButton" to="Attributes" method="_on_HandlingButton_pressed"]
 [connection signal="pressed" from="Buttons/VBoxContainer/ShopButton" to="Attributes" method="_on_ShopButton_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/BossButton" to="Buttons/VBoxContainer/EncounterButton" method="_on_BossButton_pressed"]

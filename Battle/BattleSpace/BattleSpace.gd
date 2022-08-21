@@ -8,6 +8,7 @@ var col = Color.red
 var cspot_offset = 1
 var lost = false
 var is_boss_level = false
+var game_over = false
 
 func _input(event):
 	if event.is_action_pressed("debug_spawn_asteroid"):
@@ -180,7 +181,11 @@ func win():
 	get_tree().paused = true
 
 func win_game():
-	print("u win")
+	game_over = true
+	$CanvasLayer/YouWin.visible = true
+	$CanvasLayer/YouWin/YouWinLabel.text = "RIVAL MAN DEFEATED!!!\n\nYOU WIN!"
+	$WinTimer.start()
+	get_tree().paused = true
 	
 func lose():
 	$Camera2D.remove_target($Player)
@@ -192,4 +197,8 @@ func _on_LoseTimer_timeout():
 	get_tree().change_scene("res://MainMenu/MainMenu.tscn")
 	
 func _on_WinTimer_timeout():
-	get_tree().change_scene("res://HUB/HUB.tscn")
+	if !game_over:
+		get_tree().change_scene("res://HUB/HUB.tscn")
+		
+	else:
+		get_tree().change_scene("res://Cinematics/OutroCinematic.tscn")

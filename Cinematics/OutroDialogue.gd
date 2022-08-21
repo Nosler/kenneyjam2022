@@ -11,6 +11,8 @@ var load_done = false
 
 
 func _ready():
+	get_tree().paused = false
+	
 	var Display = get_node("TextBoxContainer/MarginContainer/HBoxContainer/DisplayText")
 	
 	load_dialogue()
