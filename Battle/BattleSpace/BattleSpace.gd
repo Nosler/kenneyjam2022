@@ -41,6 +41,8 @@ func _input(event):
 				child.edge_warp_thresh = size/2
 
 func _ready():
+	PlayerDataHandler.load_attributes()
+	print("Player Level %s" % PlayerDataHandler.PlayerData.ship.level)
 	var player_durability = clamp(PlayerDataHandler.PlayerData.ship.hp * 1.3 + PlayerDataHandler.PlayerData.ship.shield * 3, 5, 65)
 	size = -65 * player_durability + 4500
 	var cam_margin = range_lerp(size, 4500, 500, 300, 40)
@@ -58,8 +60,7 @@ func _ready():
 	$Camera2D.add_target($CSpotNE)
 	$Camera2D.add_target($CSpotSW)
 	$Camera2D.add_target($CSpotSE)
-	EncounterHandler.gen_encounter(3)
-
+	EncounterHandler.gen_encounter(PlayerDataHandler.PlayerData.ship.level)
 	is_boss_level = EncounterHandler.encounterdata.is_boss_level
 	for i in range(EncounterHandler.encounterdata.encounter.lg_asteroids):
 		spawn_large_asteroid()
@@ -72,6 +73,7 @@ func _ready():
 	if is_boss_level:
 		$CanvasLayer/BossHP.visible = true
 		spawn_rivalman()
+
 
 func _process(delta):
 	if !lost:
@@ -150,13 +152,21 @@ func on_large_asteroid_destroyed(p):
 
 func _on_CheckForEnemies_timeout():
 	var children = get_children()
+	var enemies = []
 	for child in children:
 		if child.is_in_group('enemy'):
-			return
+			enemies.insert(enemies.size(), child)
+			print("Found enemy")
+			#return
+	if enemies.size() > 0:
+		print(enemies)
+		return
+	print("No enemies.")
 	win()
 
 func _on_Player_tree_exiting():
-	lose()
+	if !lost:
+		lose()
 	
 func win():
 	PlayerDataHandler.PlayerData.ship.exp += EncounterHandler.encounterdata.encounter.reward_xp
@@ -165,6 +175,8 @@ func win():
 	PlayerDataHandler.PlayerData.ship.missiles = $Player.missiles
 	PlayerDataHandler.save_attributes()
 	$CanvasLayer/YouWin.visible = true
+	$CanvasLayer/YouWin/YouWinLabel.text = "YOU WERE VICTORIOUS!\n\nExperience Gained: %s\nPaperclips Earned: %s" % [EncounterHandler.encounterdata.encounter.reward_xp, EncounterHandler.encounterdata.encounter.reward_money]
+	$WinTimer.start()
 	get_tree().paused = true
 
 func win_game():
@@ -178,3 +190,6 @@ func lose():
 	
 func _on_LoseTimer_timeout():
 	get_tree().change_scene("res://MainMenu/MainMenu.tscn")
+	
+func _on_WinTimer_timeout():
+	get_tree().change_scene("res://HUB/HUB.tscn")

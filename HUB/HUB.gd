@@ -13,6 +13,8 @@ var accel_on_levelup = 1
 var handle_on_levelup = 1
 
 func _ready():
+	get_tree().paused = false
+	
 	PlayerDataHandler = get_node("/root/PlayerDataHandler")
 	data = PlayerDataHandler.PlayerData.ship
 	
