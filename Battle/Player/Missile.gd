@@ -76,6 +76,7 @@ func _on_Missile_body_entered(body):
 		$ExplosionZone/AudioStreamPlayer2D.play()
 		if cluster > 0 and !is_cluster:
 			spawn_cluster()
+
 func _on_ExplosionZone_body_entered(body):
 	if state == 'exploded' and body.is_in_group('enemy'):
 		body.take_dmg(3)

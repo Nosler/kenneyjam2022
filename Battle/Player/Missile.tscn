@@ -21,8 +21,8 @@
 radius = 12.0
 height = 74.0
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 498.064
+[sub_resource type="CircleShape2D" id=5]
+radius = 306.105
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -56,11 +56,10 @@ texture = ExtResource( 2 )
 [node name="ExplosionZone" type="Area2D" parent="."]
 
 [node name="Collider" type="CollisionShape2D" parent="ExplosionZone"]
-shape = SubResource( 2 )
+shape = SubResource( 5 )
 
 [node name="Explosion" type="AnimatedSprite" parent="ExplosionZone"]
-visible = false
-scale = Vector2( 2, 2 )
+scale = Vector2( 4.32137, 4.32137 )
 frames = SubResource( 3 )
 frame = 1
 

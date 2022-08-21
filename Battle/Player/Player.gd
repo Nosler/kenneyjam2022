@@ -27,7 +27,7 @@ var pdl_targets = []
 
 var has_missiles = false
 var has_ioncannon = true
-
+var cannon_rotation = 0
 func _ready():
 	$IonCannon.set_enabled(false)
 	
@@ -50,8 +50,6 @@ func _ready():
 	has_ioncannon = PlayerDataHandler.PlayerData.ship.ion_cannon.enabled
 	has_missiles = PlayerDataHandler.PlayerData.ship.missile_launcher.enabled
 	
-	print(PlayerDataHandler.PlayerData.ship.ion_cannon.length)
-	
 	#read input from the battle zone
 	if has_pdl:
 		$Sprite/PointDefence.visible = true
@@ -59,6 +57,12 @@ func _ready():
 		$Sprite/MissileLauncher.visible = true
 	if has_ioncannon:
 		$Sprite/IonCannon.visible = true
+	
+	$IonCannon.scale.y = PlayerDataHandler.PlayerData.ship.ion_cannon.length * 1.5
+	var sweep_range = PlayerDataHandler.PlayerData.ship.ion_cannon.sweep_range
+	$CannonSweep.interpolate_property($IonCannon, "rotation", -PI/(5-sweep_range), PI/(5-sweep_range),1)
+	$CannonSweep.playback_speed = 1 + (PlayerDataHandler.PlayerData.ship.ion_cannon.sweep_speed * 2)
+	$CannonSweep.start()
 		
 func _process(_delta):
 	update()
