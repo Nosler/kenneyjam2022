@@ -2,6 +2,7 @@ extends Node
 
 
 const EncounterDataFilepath = "res://EncounterHandler/CurrentEncounter.json"
+const EmptyEncounterFilepath = "res://EncounterHandler/EmptyEncounter.json"
 
 var PlayerDataHandler = ""
 var playerdata = ""
@@ -65,10 +66,35 @@ func save_encounter_data():
 	file.close()
 
 
+func reset_encounter_data():
+	var file = File.new()
+	
+	if not file.file_exists(EmptyEncounterFilepath):
+		print("Error attempting to load Empty Encounter json, filepath not found [%s])" % EmptyEncounterFilepath)
+		return
+	
+	file.open(EmptyEncounterFilepath, File.READ)
+	
+	var text = file.get_as_text()
+	var data_parse = JSON.parse(text)
+
+	if data_parse.error != OK:
+		print("Error returned when attempting to parse Empty Encounter json file in encounter generation")
+		return
+
+	encounterdata = data_parse.result
+
+	file.close()
+	
+	save_encounter_data()
+
+
 func gen_encounter(level):
 	var xp_budget = 0
 	var xp_used = 0
 	var enc_reward = 0
+	
+	reset_encounter_data()
 	
 	rng.randomize()
 	
@@ -115,4 +141,4 @@ func get_random(dict):
 
 
 func _pressed():
-	gen_encounter(playerdata.level)
+	get_tree().change_scene("res://Battle/BattleSpace/BattleSpace.tscn")

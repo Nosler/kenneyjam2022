@@ -56,8 +56,6 @@ func _input(event: InputEvent) -> void:
 
 	var Display = get_node("TextBoxContainer/MarginContainer/HBoxContainer/DisplayText")
 	
-	print("Player clicked")
-	
 	if event.is_action_pressed("click"):
 		# If there are still more lines, displays the next line
 		if CurrentLine < Lines.size()-1:

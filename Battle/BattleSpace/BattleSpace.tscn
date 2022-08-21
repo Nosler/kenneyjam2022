@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Battle/BattleSpace/BattleSpace.gd" type="Script" id=1]
 [ext_resource path="res://Battle/BattleSpace/GodotRecipesMultitarget.gd" type="Script" id=2]
@@ -35,6 +35,7 @@ autostart = true
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="YouWin" type="MarginContainer" parent="CanvasLayer"]
+visible = false
 margin_right = 1920.0
 margin_bottom = 1080.0
 
@@ -118,8 +119,14 @@ script = ExtResource( 4 )
 wait_time = 3.0
 one_shot = true
 
+[node name="WinTimer" type="Timer" parent="."]
+pause_mode = 2
+wait_time = 10.0
+one_shot = true
+
 [connection signal="ready" from="Player" to="." method="_on_Player_ready"]
 [connection signal="tree_exited" from="Player" to="." method="_on_Player_tree_exited"]
 [connection signal="tree_exiting" from="Player" to="." method="_on_Player_tree_exiting"]
 [connection signal="timeout" from="CheckForEnemies" to="." method="_on_CheckForEnemies_timeout"]
 [connection signal="timeout" from="LoseTimer" to="." method="_on_LoseTimer_timeout"]
+[connection signal="timeout" from="WinTimer" to="." method="_on_WinTimer_timeout"]
