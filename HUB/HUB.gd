@@ -72,12 +72,15 @@ func level_up():
 	data.exp -= xp_to_level
 	data.level += 1
 	
+	PlayerDataHandler.PlayerData.ship = data
+	
+	# Calls save_attributes function to save the changed data to PlayerData.json, re-loads the data
+	PlayerDataHandler.save_attributes()
+	PlayerDataHandler.load_attributes()
+	
 	# Sets button visibility based on check_ready_level_up function's output
 	buttons_visible(check_ready_level_up())
 	
-	# Calls save_attributes function to save the changed data to PlayerData.json, re-loads the data, then redraws all relevant textboxes
-	PlayerDataHandler.save_attributes()
-	PlayerDataHandler.load_attributes()
 	refresh_textboxes()
 
 
