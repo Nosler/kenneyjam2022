@@ -19,7 +19,11 @@ func _ready():
 	speed = 1000 + PlayerDataHandler.PlayerData.ship.missile_launcher.projectile_speed * 500
 	if !is_cluster:
 		cluster = PlayerDataHandler.PlayerData.ship.missile_launcher.cluster
-	$ArmingTimer.wait_time = 1 - PlayerDataHandler.PlayerData.ship.missile_launcher.lockon_speed * .25
+		$ArmingTimer.wait_time = 1 - PlayerDataHandler.PlayerData.ship.missile_launcher.lockon_speed * .25
+	else:
+		$Deploy.volume_db = -20
+		$LockOn.volume_db = -20
+		$ArmingTimer.wait_time = 3
 
 func _physics_process(delta):
 	if position.x >= edge_warp_thresh or position.x <= -edge_warp_thresh:
@@ -42,8 +46,6 @@ func _physics_process(delta):
 		'drifting':
 			position -= transform.y * 150 * delta
 		'exploded':
-			if cluster > 0 and !is_cluster:
-				spawn_cluster()
 			for b in $LockOnZone.get_overlapping_bodies():
 				if b.is_in_group('enemy'):
 					b.take_dmg(.5)
@@ -65,14 +67,15 @@ func _on_SeekingTimer_timeout():
 		$Sprite/Trail.visible = false
 
 func _on_Missile_body_entered(body):
-	if body.is_in_group('enemy'):
+	if body.is_in_group('enemy') and state != 'arming':
 		state = 'exploded'
 		$Sprite.visible = false
 		$ExplosionZone/Explosion.visible = true
 		$ExplosionZone/Explosion.playing = true
 		$ExplosionZone/ExplosionTimer.start()
 		$ExplosionZone/AudioStreamPlayer2D.play()
-		
+		if cluster > 0 and !is_cluster:
+			spawn_cluster()
 func _on_ExplosionZone_body_entered(body):
 	if state == 'exploded' and body.is_in_group('enemy'):
 		body.take_dmg(3)
@@ -103,11 +106,12 @@ func _on_LockOnZone_body_exited(body):
 			target = null
 
 func spawn_cluster():
-	for i in range(cluster):
-		print("SPAWNING GUY", cluster)
-		var m = missile.instance()
-		m.edge_warp_thresh = edge_warp_thresh
-		m.position = global_position
-		m.is_cluster = true
-		m.rotation = rotation + (2*PI / (cluster - i))
-		get_parent().add_child(m)
+	if !is_cluster:
+		for i in range(cluster):
+			print("SPAWNING GUY", cluster)
+			var m = missile.instance()
+			m.edge_warp_thresh = edge_warp_thresh
+			m.position = global_position
+			m.is_cluster = true
+			m.rotation = rotation + (2*PI / (cluster - i))
+			get_parent().add_child(m)

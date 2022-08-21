@@ -72,6 +72,7 @@ func shoot_pew():
 	p.position = $Muzzle.global_position
 	p.rotation = rotation
 	p.speed = bullet_speed
+	p.scale = global_scale
 	$Shoot.play()
 	get_parent().add_child(p)
 
