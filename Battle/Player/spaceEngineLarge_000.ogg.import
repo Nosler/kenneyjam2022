@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/spaceEngineLarge_000.ogg-7711429f5b21b924e60dac9d0dd4bd10.oggstr"
+
+[deps]
+
+source_file="res://Battle/Player/spaceEngineLarge_000.ogg"
+dest_files=[ "res://.import/spaceEngineLarge_000.ogg-7711429f5b21b924e60dac9d0dd4bd10.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
