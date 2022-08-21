@@ -9,7 +9,7 @@
 	"level":1,
 	"shield":2,
 	"shield_max":2,
-	"paperclips":1000,
+	"paperclips":200,
 	"missiles":0,
 	"pewpews":{
 		"enabled":true,

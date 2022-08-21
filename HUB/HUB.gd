@@ -23,7 +23,7 @@ func _ready():
 	refresh_textboxes()
 
 
-# Sets the GUI buttons's visibility to given input
+# Sets the GUI buttons's visibility to given argument if its a bool
 func buttons_visible(toggle):
 	var hp_button = $Display/HullPoints/HPButton
 	var shield_button = $Display/ShieldPoints/ShieldButton
@@ -70,13 +70,13 @@ func level_up():
 	data.exp -= xp_to_level
 	data.level += 1
 	
+	# Sets button visibility based on check_ready_level_up function's output
+	buttons_visible(check_ready_level_up())
+	
 	# Calls save_attributes function to save the changed data to PlayerData.json, re-loads the data, then redraws all relevant textboxes
 	PlayerDataHandler.save_attributes()
 	PlayerDataHandler.load_attributes()
 	refresh_textboxes()
-	
-	# Sets button visibility based on check_ready_level_up function's output
-	buttons_visible(check_ready_level_up())
 
 
 # Level Up buttons' signal handling

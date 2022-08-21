@@ -2,9 +2,15 @@ extends CanvasLayer
 
 # Sets up PlayerDataHandler and connects buttons to their functions
 func _ready():
-	$Buttons/StartGame.connect("pressed", self, "start_game")
+	$Buttons/NewGame.connect("pressed", self, "new_game")
+	$Buttons/LoadGame.connect("pressed", self, "start_game")
 	$Buttons/Credits.connect("pressed", self, "run_credits")
 	$Buttons/Exit.connect("pressed", self, "exit_game")
+	
+func new_game():
+	var PlayerDataHandler = get_node("/root/PlayerDataHandler")
+	PlayerDataHandler.reset_attributes()
+	start_game()
 	
 func start_game():
 	var playerlevel = get_node("/root/PlayerDataHandler").PlayerData.ship.level

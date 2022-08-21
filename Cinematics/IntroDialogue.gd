@@ -59,9 +59,12 @@ func _input(event: InputEvent) -> void:
 	print("Player clicked")
 	
 	if event.is_action_pressed("click"):
+		# If there are still more lines, displays the next line
 		if CurrentLine < Lines.size()-1:
 			CurrentLine += 1
 			Display.text = Lines[CurrentLine]
 			
+		# If this is the last line, changes scenes to the HUB
+		# When ready, this will send to the first encounter instead.
 		elif CurrentLine >= Lines.size()-1:
 			get_tree().change_scene("res://HUB/HUB.tscn")

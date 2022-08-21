@@ -160,25 +160,33 @@ margin_right = 1110.0
 margin_bottom = 950.0
 custom_constants/separation = 0
 
-[node name="StartGame" type="Button" parent="Buttons"]
+[node name="NewGame" type="Button" parent="Buttons"]
 margin_right = 300.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 0, 150 )
 custom_fonts/font = SubResource( 3 )
-text = "Start Game"
+text = "New Game"
 
-[node name="Credits" type="Button" parent="Buttons"]
+[node name="LoadGame" type="Button" parent="Buttons"]
 margin_top = 150.0
 margin_right = 300.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 0, 150 )
 custom_fonts/font = SubResource( 3 )
-text = "Credits"
+text = "Load Game"
 
-[node name="Exit" type="Button" parent="Buttons"]
+[node name="Credits" type="Button" parent="Buttons"]
 margin_top = 300.0
 margin_right = 300.0
 margin_bottom = 450.0
+rect_min_size = Vector2( 0, 150 )
+custom_fonts/font = SubResource( 3 )
+text = "Credits"
+
+[node name="Exit" type="Button" parent="Buttons"]
+margin_top = 450.0
+margin_right = 300.0
+margin_bottom = 600.0
 rect_min_size = Vector2( 0, 150 )
 custom_fonts/font = SubResource( 3 )
 text = "Exit"

@@ -1,6 +1,7 @@
 extends Node
 
 const PlayerDataFilepath = "res://Player/PlayerData.json"
+const PlayerDefaultDataFilepath = "res://Player/PlayerDefaultData.json"
 
 var PlayerData = { }
 
@@ -29,6 +30,31 @@ func load_attributes():
 	PlayerData = data_parse.result
 
 	file.close()
+	
+
+# Resets all PlayerData to match the PlayerDataDefault file
+func reset_attributes():
+	var file = File.new()
+
+	if not file.file_exists(PlayerDefaultDataFilepath):
+		print("Error attempting to load Default Player Data, filepath not found [%s])" % PlayerDefaultDataFilepath)
+		return
+
+	file.open(PlayerDefaultDataFilepath, File.READ)
+
+	var text = file.get_as_text()
+	var data_parse = JSON.parse(text)
+
+	if data_parse.error != OK:
+		print("Error returned when attempting to parse json file in PlayerData Handler")
+		return
+
+	PlayerData = data_parse.result
+
+	save_attributes()
+
+	file.close()
+
 
 
 # Writes the PlayerData.json file with PlayerData dict-turned-json
