@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/star_09.png-410ebf3c165c00905999b088a3f77e5f.stex"
+path="res://.import/star_08.png-7d4ecca99604609809c44ce0e5a005a5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://HUB/assets/star_09.png"
-dest_files=[ "res://.import/star_09.png-410ebf3c165c00905999b088a3f77e5f.stex" ]
+source_file="res://assets/star_08.png"
+dest_files=[ "res://.import/star_08.png-7d4ecca99604609809c44ce0e5a005a5.stex" ]
 
 [params]
 

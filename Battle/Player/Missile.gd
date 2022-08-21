@@ -8,8 +8,8 @@ var target = null
 var cluster = 0
 
 func _draw():
-	if state == 'arming' and !potential_targets.empty():
-		draw_line(Vector2.ZERO, (potential_targets[0].position - position).rotated(-rotation), Color.red.darkened(.5))
+	if state == 'arming' and is_instance_valid(target):
+		draw_line(Vector2.ZERO, (target.position - position).rotated(-rotation), Color.red.darkened(.5))
 	if state == 'seeking':
 		draw_line(Vector2.ZERO, (target.position - position).rotated(-rotation), Color.red)
 
@@ -28,7 +28,7 @@ func _physics_process(delta):
 		'arming':
 			position += transform.y * 150 * delta
 		'seeking':
-			if target:
+			if is_instance_valid(target):
 				look_at(target.position)
 				rotation = rotation + PI/2
 				position -= transform.y * speed * delta
@@ -38,13 +38,14 @@ func _physics_process(delta):
 		'drifting':
 			position -= transform.y * 150 * delta
 		'exploded':
-			pass
+			for b in $LockOnZone.get_overlapping_bodies():
+				if b.is_in_group('enemy'):
+					b.take_dmg(1)
 	update()
 
 func _on_ArmingTimer_timeout():
 	if state == 'arming':
-		if !potential_targets.empty():
-			target = potential_targets[0]
+		if target:
 			state = 'seeking'
 			$Sprite/Trail.visible = true
 			$SeekingTimer.start()
@@ -75,7 +76,18 @@ func _on_ExplosionTimer_timeout():
 func _on_LockOnZone_body_entered(body):
 	if state == 'arming' and body.is_in_group('enemy'):
 		potential_targets.append(body)
-
+		target = potential_targets[0]
+		for t in potential_targets:
+			if position.distance_to(t.position) < position.distance_to(target.position):
+				target = t
+		
 func _on_LockOnZone_body_exited(body):
 	if state == 'arming' and body.is_in_group('enemy'):
 		potential_targets.remove(potential_targets.find(body))
+		if !potential_targets.empty():
+			target = potential_targets[0]
+			for t in potential_targets:
+				if position.distance_to(t.position) < position.distance_to(target.position):
+					target = t
+		else:
+			target = null
