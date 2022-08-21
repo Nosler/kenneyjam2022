@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Battle/BattleSpace/BattleSpace.gd" type="Script" id=1]
 [ext_resource path="res://Battle/BattleSpace/GodotRecipesMultitarget.gd" type="Script" id=2]
 [ext_resource path="res://Battle/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Battle/BattleSpace/DrawDot.gd" type="Script" id=4]
+[ext_resource path="res://Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 60
+font_data = ExtResource( 6 )
 
 [node name="BattleSpace" type="Node2D"]
 script = ExtResource( 1 )
@@ -25,30 +34,34 @@ autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="YouWin" type="Label" parent="CanvasLayer"]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -39.0
-margin_top = -7.0
-margin_right = 39.0
-margin_bottom = 7.0
-text = "YOU WIN :D"
+[node name="YouWin" type="MarginContainer" parent="CanvasLayer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="YouWinLabel" type="Label" parent="CanvasLayer/YouWin"]
+margin_top = 399.0
+margin_right = 1920.0
+margin_bottom = 680.0
+custom_fonts/font = SubResource( 1 )
+text = "YOU WERE VICTORIOUS!
+
+Experience Gained:
+Paperclips Earned:"
 align = 1
 
-[node name="YouLose" type="Label" parent="CanvasLayer"]
+[node name="YouLose" type="MarginContainer" parent="CanvasLayer"]
 visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -39.0
-margin_top = -7.0
-margin_right = 39.0
-margin_bottom = 7.0
-text = "YOU LOSE D:"
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="YouLoseLabel" type="Label" parent="CanvasLayer/YouLose"]
+margin_top = 435.0
+margin_right = 1920.0
+margin_bottom = 645.0
+custom_fonts/font = SubResource( 2 )
+text = "YOU WERE DEFEATED.
+
+Returning to Main Menu."
 align = 1
 
 [node name="UI" type="VBoxContainer" parent="CanvasLayer"]
