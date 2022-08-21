@@ -146,11 +146,12 @@ scale = Vector2( 0.154297, 0.154297 )
 texture = ExtResource( 5 )
 
 [node name="Title" type="Label" parent="."]
-margin_top = 200.0
+margin_top = 140.0
 margin_right = 1920.0
-margin_bottom = 272.0
+margin_bottom = 287.0
 custom_fonts/font = SubResource( 2 )
-text = "asteroids But Better"
+text = "We got ships, We got lasers
+We got stars, we got asteroids!"
 align = 1
 
 [node name="Buttons" type="VBoxContainer" parent="."]

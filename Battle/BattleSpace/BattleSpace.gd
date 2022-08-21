@@ -133,6 +133,7 @@ func spawn_smol_asteroid():
 	add_child(a)
 
 func spawn_stars():
+	print("Spawning stars")
 	var rand = RandomNumberGenerator.new()
 	var star_colors = [Color.blue, Color.indigo, Color.aqua, Color.purple, Color.green]
 	var ss = range_lerp(size/2, 4500, 500, .8, .2)
@@ -146,7 +147,7 @@ func spawn_stars():
 		if randi() % 3 < 2:
 			s.playing = true
 			s.speed_scale = rand.randf_range(0.0, 0.05)
-		s.position = Vector2(rand.randf_range(-5000, 5000), rand.randf_range(-5000, 5000))
+		s.position = Vector2(rand.randf_range(-2000, 2000), rand.randf_range(-2000, 2000))
 		if !Rect2(Vector2(-size/2 - 10, -size/2 - 10), Vector2(size + 10, size + 10)).has_point(s.position):
 			add_child(s)
 	
