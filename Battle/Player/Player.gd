@@ -70,20 +70,17 @@ func _input(event):
 		shoot_pewpew()
 	if event.is_action_pressed('weapon2'):
 		if has_pdl:
-			pdl_activated = true
-			$PDLTimer.start()
-			$PDLZone.visible = true
+			toggle_pdl(true)
 	if event.is_action_released('weapon2'):
 		if has_pdl:
-			pdl_activated = false
-			$PDLTimer.stop()
-			$PDLZone.visible = false
+			toggle_pdl(false)
 	if event.is_action_pressed('weapon3'):
 		if energy > 5 and has_ioncannon:
 			energy -= 5
 			unloading_energy = true
 			$IonCannon.set_enabled(true)
 			$IonCannon.visible = true
+			$Cannon.playing = true
 	if event.is_action_pressed('weapon4'):
 		shoot_missile()
 		
@@ -98,6 +95,7 @@ func _physics_process(delta):
 			$IonCannon.set_enabled(false)
 			unloading_energy = false
 			$IonCannon.visible = false
+			$Cannon.playing = false
 
 func _integrate_forces(state):
 	if position.x >= edge_warp_thresh or position.x <= -edge_warp_thresh:
@@ -108,9 +106,11 @@ func _integrate_forces(state):
 	if Input.is_action_pressed("ui_up"):
 		applied_force = thrust.rotated(rotation)
 		$Sprite/Thrusters.visible = true
+		$Thruster.playing = true
 	else:
 		applied_force = Vector2()
 		$Sprite/Thrusters.visible = false
+		$Thruster.playing = false
 	var rotation_dir = 0
 	if Input.is_action_pressed("ui_right"):
 		rotation_dir += 1
@@ -130,6 +130,7 @@ func take_damage(dmg):
 		invunerable = true
 		$InvulTimer.start()
 		$InvulFlash.start()
+		$TakeDamage.play()
 		
 func die():
 	print('lol im fuckin dead')
@@ -168,9 +169,8 @@ func _on_PDLTimer_timeout():
 		energy -= pdl_cost
 		pdl_targets[0].take_dmg(1)
 		if energy <= 0:
-			pdl_activated = false
-			$PDLTimer.stop()
-			$PDLZone.visible = false
+			toggle_pdl(false)
+		$PDLZap.play()
 
 func _on_PDLZone_body_entered(body):
 	if body.is_in_group('enemy'):
@@ -201,3 +201,12 @@ func shoot_missile():
 		m.position = global_position
 		m.rotation = rotation
 		get_parent().add_child(m)
+
+func toggle_pdl(x):
+	pdl_activated = x
+	$PDLZone.visible = x
+	$PDLHum.playing = x
+	if x:
+		$PDLTimer.start()
+	else:
+		$PDLTimer.stop()

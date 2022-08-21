@@ -15,7 +15,6 @@ func _physics_process(delta):
 		position = Vector2(clamp(position.x, -edge_warp_thresh, edge_warp_thresh), clamp(-position.y, -edge_warp_thresh, edge_warp_thresh))
 
 func _on_Lifespan_timeout():
-	print("you missed lol")
 	queue_free()
 
 func _on_PewPew_body_entered(body):

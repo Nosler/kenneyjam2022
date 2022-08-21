@@ -64,6 +64,7 @@ func _on_Missile_body_entered(body):
 		$ExplosionZone/Explosion.visible = true
 		$ExplosionZone/Explosion.playing = true
 		$ExplosionZone/ExplosionTimer.start()
+		$ExplosionZone/AudioStreamPlayer2D.play()
 		
 func _on_ExplosionZone_body_entered(body):
 	if state == 'exploded' and body.is_in_group('enemy'):

@@ -4,7 +4,7 @@ var asteroidS = load("res://Battle/Enemies/Asteroid/AsteroidS.tscn")
 var asteroidL = load("res://Battle/Enemies/Asteroid/AsteroidL.tscn")
 var size = 2300
 var col = Color.red
-var cspot_offset = 0.9
+var cspot_offset = 1
 
 func _input(event):
 	if event.is_action_pressed("debug_spawn_asteroid"):
@@ -45,12 +45,13 @@ func _ready():
 	$CanvasLayer/UI/Energy.rect_size.x = 50
 	$CanvasLayer/UI/Defence/HP.rect_size.x = 50
 	$CanvasLayer/UI/Defence/Shield.rect_size.x = 50
-	$Camera2D.add_target($CSpotNW)
 	$Camera2D.margin = Vector2(cam_margin,cam_margin)
 	$CSpotNW.position = Vector2((-size/2)*cspot_offset,(-size/2)*cspot_offset)
 	$CSpotNE.position = Vector2((size/2)*cspot_offset,(-size/2)*cspot_offset)
 	$CSpotSW.position = Vector2((-size/2)*cspot_offset,(size/2)*cspot_offset)
 	$CSpotSE.position = Vector2((size/2)*cspot_offset,(size/2)*cspot_offset)
+	$Camera2D.add_target($Player)
+	$Camera2D.add_target($CSpotNW)
 	$Camera2D.add_target($CSpotNE)
 	$Camera2D.add_target($CSpotSW)
 	$Camera2D.add_target($CSpotSE)
