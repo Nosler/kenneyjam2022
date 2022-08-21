@@ -2,7 +2,7 @@ extends CanvasLayer
 
 
 const price_modifier = 1
-const missile_price = 200
+const missile_price = 100
 
 var PlayerDataHandler = ""
 var data = ""

@@ -50,6 +50,7 @@ size = 32
 font_data = ExtResource( 9 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 10 )
 
 [node name="Background" type="MarginContainer" parent="."]
 margin_right = 1920.0
@@ -343,7 +344,6 @@ margin_bottom = 400.0
 rect_min_size = Vector2( 0, 200 )
 custom_fonts/font = SubResource( 11 )
 text = "Next Encounter!"
-script = ExtResource( 10 )
 
 [node name="BossButton" type="Button" parent="Buttons/VBoxContainer"]
 margin_top = 400.0
@@ -368,4 +368,5 @@ valign = 1
 [connection signal="pressed" from="Attributes/Display/Acceleration/AccelButton" to="Attributes" method="_on_AccelButton_pressed"]
 [connection signal="pressed" from="Attributes/Display/Handling/HandlingButton" to="Attributes" method="_on_HandlingButton_pressed"]
 [connection signal="pressed" from="Buttons/VBoxContainer/ShopButton" to="Attributes" method="_on_ShopButton_pressed"]
-[connection signal="pressed" from="Buttons/VBoxContainer/BossButton" to="Buttons/VBoxContainer/EncounterButton" method="_on_BossButton_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/EncounterButton" to="." method="_on_EncounterButton_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/BossButton" to="." method="_on_BossButton_pressed"]

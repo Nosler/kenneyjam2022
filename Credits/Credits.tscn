@@ -149,17 +149,15 @@ margin_right = 1395.0
 margin_bottom = 900.0
 
 [node name="Credits" type="Label" parent="MarginContainer"]
-margin_top = 139.0
+margin_top = 214.0
 margin_right = 770.0
-margin_bottom = 661.0
+margin_bottom = 586.0
 custom_fonts/font = SubResource( 2 )
 text = "Developers:
+
 Andrea Nosler
 Madeline Finegan
-Sam Champer
-
-Playtesters:
-Daniel Molidor"
+Sam Champer"
 align = 1
 
 [node name="Button" type="Button" parent="."]

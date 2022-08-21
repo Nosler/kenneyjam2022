@@ -5,26 +5,30 @@ const EncounterDataFilepath = "res://EncounterHandler/CurrentEncounter.json"
 const EmptyEncounterFilepath = "res://EncounterHandler/EmptyEncounter.json"
 
 var PlayerDataHandler = ""
-var playerdata = ""
+var playerdata = {}
 var encounterdata = {}
 var rng = RandomNumberGenerator.new()
 
 var enemies = { 
 	"lg_asteroid": {
 		"name": "lg_asteroids", 
-		"xp":2
+		"xp":3,
+		"tier":1
 		},
 	"sm_asteroid": {
 		"name": "sm_asteroids", 
-		"xp":1
+		"xp":1,
+		"tier":1
 		},
 	"turret": {
 		"name": "turrets", 
-		"xp":2
+		"xp":2,
+		"tier":5
 		},
 	"kamikaze": {
 		"name": "kamikazes", 
-		"xp":1
+		"xp":5,
+		"tier":5
 		}
 }
 
@@ -56,7 +60,7 @@ func load_encounter_data():
 
 	file.close()
 
-# Writes encounter data to the json
+
 func save_encounter_data():
 	var file = File.new()
 	
@@ -93,28 +97,40 @@ func gen_encounter(level):
 	var xp_budget = 0
 	var xp_used = 0
 	var enc_reward = 0
+	var tier = 0
+	var boss = encounterdata.encounter.boss # Maintains boss state
 	
 	reset_encounter_data()
+	encounterdata.encounter.boss = boss
 	
 	rng.randomize()
 	
+	print("Should generate encounter here for level %s" % level)
 	# Tier 1 encounters
 	if level < 4:
+		print("Tier 1 encounter")
+		tier = 1
 		xp_budget = rng.randi_range(5,10)
 		enc_reward = rng.randi_range(20,70)*10
 
 	# Tier 2 encounters
-	elif level in range(4,8):
+	elif level >= 4 and level < 9:
+		print("Tier 2 encounter")
+		tier = 2
 		xp_budget = rng.randi_range(14,25)
 		enc_reward = rng.randi_range(30,90)*10
 
 	# Tier 3 encounters
-	elif level in range (9,14):
+	elif level >= 9 and level < 15:
+		print("Tier 3 encounter")
+		tier = 3
 		xp_budget = rng.randi_range(30,60)
 		enc_reward = rng.randi_range(50,120)*10
 
 	# Tier 4 encounters (post-game, scales encounter XP and rewards with level after this point
-	elif level > 15:
+	elif level >= 15:
+		print("Tier 4 encounter")
+		tier = 4
 		xp_budget = rng.randi_range(2*level,4*level)
 		enc_reward = rng.randi_range(3*level, 6*level)*10
 
@@ -124,7 +140,7 @@ func gen_encounter(level):
 
 		var new_enemy = get_random(enemies)
 
-		if xp_used + new_enemy.xp <= xp_budget:
+		if xp_used + new_enemy.xp <= xp_budget and new_enemy.tier <= tier:
 			xp_used += new_enemy.xp
 			encounterdata.encounter[new_enemy.name] += 1
 
@@ -140,14 +156,14 @@ func get_random(dict):
 	return dict[a]
 
 
-func _pressed():
+func _on_BossButton_pressed():
+	encounterdata.encounter.boss = true
+	print("bossbuttontest",encounterdata.encounter.boss)
+	save_encounter_data()
+	get_tree().change_scene("res://Battle/BattleSpace/BattleSpace.tscn")
+
+func _on_EncounterButton_pressed():
+	print("Encounter button pressed")
 	reset_encounter_data()
 	gen_encounter(playerdata.level)
-	get_tree().change_scene("res://Battle/BattleSpace/BattleSpace.tscn")
-	
-	
-func _on_BossButton_pressed():
-	reset_encounter_data()
-	encounterdata.boss = true
-	save_encounter_data()
 	get_tree().change_scene("res://Battle/BattleSpace/BattleSpace.tscn")

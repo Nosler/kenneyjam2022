@@ -87,7 +87,7 @@ func level_up():
 # Level Up buttons' signal handling
 func _on_HPButton_pressed() -> void:
 	data.hp_max += hp_on_levelup
-	data.hp += hp_on_levelup
+	data.hp = data.hp_max
 	level_up()
 
 
