@@ -60,7 +60,7 @@ func _ready():
 	$Camera2D.add_target($CSpotSE)
 	EncounterHandler.gen_encounter(3)
 
-	is_boss_level = true #EncounterHandler.encounterdata.is_boss_level
+	is_boss_level = EncounterHandler.encounterdata.is_boss_level
 	for i in range(EncounterHandler.encounterdata.encounter.lg_asteroids):
 		spawn_large_asteroid()
 	for i in range(EncounterHandler.encounterdata.encounter.sm_asteroids):
