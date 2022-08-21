@@ -3,8 +3,11 @@ extends Node2D
 var rivalman = load("res://Battle/Enemies/RivalMan/RivalMan.tscn")
 var asteroidS = load("res://Battle/Enemies/Asteroid/AsteroidS.tscn")
 var asteroidL = load("res://Battle/Enemies/Asteroid/AsteroidL.tscn")
+var turret = load("res://Battle/Enemies/Turret/Turret.tscn")
+var kamikazeboy = load("res://Battle/Enemies/KamikazeBoy/KamikazeBoy.tscn")
+
 var size = 2300
-var col = Color.red
+var col = Color.indigo
 var cspot_offset = 1
 var lost = false
 var is_boss_level = false
@@ -44,7 +47,7 @@ func _input(event):
 func _ready():
 	PlayerDataHandler.load_attributes()
 	print("Player Level %s" % PlayerDataHandler.PlayerData.ship.level)
-	var player_durability = clamp(PlayerDataHandler.PlayerData.ship.hp * 1.3 + PlayerDataHandler.PlayerData.ship.shield * 3, 5, 65)
+	var player_durability = clamp(PlayerDataHandler.PlayerData.ship.hp * 2 + PlayerDataHandler.PlayerData.ship.shield * 3.5, 5, 65)
 	size = -65 * player_durability + 4500
 	var cam_margin = range_lerp(size, 4500, 500, 300, 40)
 	$Player.edge_warp_thresh = size/2
@@ -62,7 +65,7 @@ func _ready():
 	$Camera2D.add_target($CSpotSW)
 	$Camera2D.add_target($CSpotSE)
 	EncounterHandler.gen_encounter(PlayerDataHandler.PlayerData.ship.level)
-	#is_boss_level = EncounterHandler.encounterdata.is_boss_level
+	is_boss_level = EncounterHandler.encounterdata.encounter.boss
 	for i in range(EncounterHandler.encounterdata.encounter.lg_asteroids):
 		spawn_large_asteroid()
 	for i in range(EncounterHandler.encounterdata.encounter.sm_asteroids):
@@ -72,6 +75,7 @@ func _ready():
 	for i in range(EncounterHandler.encounterdata.encounter.kamikazes):
 		spawn_kamikaze()
 	if is_boss_level:
+		col = Color.green
 		$CanvasLayer/BossHP.visible = true
 		spawn_rivalman()
 
@@ -126,10 +130,25 @@ func spawn_smol_asteroid():
 	add_child(a)
 
 func spawn_turret():
-	pass
+	var rand = RandomNumberGenerator.new()
+	rand.randomize()
+	var t = turret.instance()
+	t.edge_warp_thresh = size/2
+	t.force_scale(size)
+	t.position.y = rand.randf_range(-size/2, size/2)
+	t.position.x = rand.randf_range(-size/2, size/2)
+	add_child(t)
 
 func spawn_kamikaze():
-	pass
+	var rand = RandomNumberGenerator.new()
+	rand.randomize()
+	var k = kamikazeboy.instance()
+	k.edge_warp_thresh = size/2
+	k.rotation = rand.randf_range(0, 360)
+	k.force_scale(size)
+	k.position.y = rand.randf_range(-size/2, size/2)
+	k.position.x = rand.randf_range(-size/2, size/2)
+	add_child(k)
 
 func spawn_rivalman():
 	$Player.position = Vector2(0, size/3)
@@ -153,16 +172,9 @@ func on_large_asteroid_destroyed(p):
 
 func _on_CheckForEnemies_timeout():
 	var children = get_children()
-	var enemies = []
 	for child in children:
 		if child.is_in_group('enemy'):
-			enemies.insert(enemies.size(), child)
-			print("Found enemy")
-			#return
-	if enemies.size() > 0:
-		print(enemies)
-		return
-	print("No enemies.")
+			return
 	win()
 
 func _on_Player_tree_exiting():

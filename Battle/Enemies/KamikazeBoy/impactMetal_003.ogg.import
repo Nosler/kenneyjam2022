@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/impactMetal_003.ogg-ae969d868b41abbb3e16c22b5382f9b9.oggstr"
+
+[deps]
+
+source_file="res://Battle/Enemies/KamikazeBoy/impactMetal_003.ogg"
+dest_files=[ "res://.import/impactMetal_003.ogg-ae969d868b41abbb3e16c22b5382f9b9.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

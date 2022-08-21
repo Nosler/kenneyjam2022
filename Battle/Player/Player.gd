@@ -183,6 +183,9 @@ func _on_PDLZone_body_exited(body):
 func _on_Player_body_entered(body):
 	if body.is_in_group('enemy'):
 		take_damage(1)
+	if body.is_in_group('kboy'):
+		body.queue_free()
+		$KilledKamikaze.play()
 
 func shoot_pewpew():
 	if energy > 0:

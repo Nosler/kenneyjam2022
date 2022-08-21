@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends StaticBody2D
 
 var target = null
 var rng = RandomNumberGenerator.new()
@@ -6,10 +6,16 @@ var pew = load("res://Battle/Enemies/Turret/Pew.tscn")
 var state = 'loading'
 var rotate_speed = PI/69
 var bullet_speed = 1000
+var edge_warp_thresh
+var hp = 45
+var area_color = Color.blue
 
 func _ready():
+	area_color.a = .1
 	$LoadingTimer.wait_time = 3
 
+func _draw():
+	draw_circle(Vector2.ZERO, $detection_area/CollisionShape2D.shape.radius, area_color)
 func dot_prod(v1, v2):
 	return v1.normalized().dot(v2.normalized())
 
@@ -53,11 +59,19 @@ func _physics_process(delta):
 			pass
 	update()
 
+func take_dmg(x):
+	hp -= x
+	$TakeDmg.play()
+	if hp <= 0:
+		queue_free()
+
 func shoot_pew():
 	var p = pew.instance()
+	p.edge_warp_thresh = edge_warp_thresh
 	p.position = $Muzzle.global_position
 	p.rotation = rotation
 	p.speed = bullet_speed
+	$Shoot.play()
 	get_parent().add_child(p)
 
 func _on_LoadingTimer_timeout():
@@ -80,7 +94,10 @@ func _on_detection_area_body_exited(body):
 		if state == 'aiming':
 			state = 'waiting'
 
-
 func _on_Turret_body_entered(body):
 	if body.name == "Player":
 		print("BONK")
+
+func force_scale(size):
+	var s = range_lerp(size, 4500, 500, 1, .1)
+	scale = Vector2(s,s)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Battle/Player/ship_I.png" type="Texture" id=1]
 [ext_resource path="res://Battle/Player/Player.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Battle/Player/laserSmall_001.ogg" type="AudioStream" id=11]
 [ext_resource path="res://Battle/Player/explosionCrunch_000.ogg" type="AudioStream" id=12]
 [ext_resource path="res://Battle/Player/spaceEngineLarge_000.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Battle/Enemies/KamikazeBoy/impactMetal_003.ogg" type="AudioStream" id=14]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 145.382
@@ -100,6 +101,8 @@ stream = ExtResource( 11 )
 
 [node name="Thruster" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 10 )
+volume_db = -10.0
+pitch_scale = 0.8
 
 [node name="Cannon" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 13 )
@@ -109,6 +112,9 @@ pitch_scale = 0.5
 [node name="TakeDamage" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 12 )
 volume_db = -4.602
+
+[node name="KilledKamikaze" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 14 )
 
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
 [connection signal="timeout" from="InvulTimer" to="." method="_on_InvincibilityTimer_timeout"]
