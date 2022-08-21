@@ -1,17 +1,17 @@
 extends CanvasLayer
 
 
-var DialogueFilepath: = "res://Cinematics/IntroDialogue.json"
-var DialogueData: = { }
-var Display: = ""
-var Lines: = [ ]
-var CurrentLine: = 0
+var DialogueFilepath = "res://Cinematics/IntroDialogue.json"
+var DialogueData = { }
+var Display = ""
+var Lines = [ ]
+var CurrentLine = 0
 
 var load_done = false
 
 
 func _ready():
-	var Display = get_node("TextBoxContainer/MarginContainer/HBoxContainer/DisplayText")
+	Display = get_node("TextBoxContainer/MarginContainer/HBoxContainer/DisplayText")
 	
 	load_dialogue()
 	
@@ -54,7 +54,7 @@ func _input(event: InputEvent) -> void:
 		print("Not loaded")
 		return
 
-	var Display = get_node("TextBoxContainer/MarginContainer/HBoxContainer/DisplayText")
+	Display = get_node("TextBoxContainer/MarginContainer/HBoxContainer/DisplayText")
 	
 	if event.is_action_pressed("click"):
 		# If there are still more lines, displays the next line
