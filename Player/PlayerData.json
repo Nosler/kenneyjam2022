@@ -10,7 +10,7 @@
 	"shield":2,
 	"shield_max":2,
 	"paperclips":200,
-	"missiles":0,
+	"missiles":1110,
 	"pewpews":{
 		"enabled":true,
 		"energy_cost":0,
@@ -30,9 +30,9 @@
 		"sweep_speed":0
 	},
 	"missile_launcher":{
-		"enabled":false,
+		"enabled":true,
 		"projectile_speed":0,
-		"cluster":0,
+		"cluster":3,
 		"lockon_speed":0
 	}
 }}

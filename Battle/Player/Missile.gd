@@ -1,11 +1,13 @@
 extends Area2D
 
+var missile = load("res://Battle/Player/Missile.tscn")
 var edge_warp_thresh
 var speed = 1500
 var state = 'arming'
 var potential_targets = []
 var target = null
 var cluster = 0
+var is_cluster = false
 
 func _draw():
 	if state == 'arming' and is_instance_valid(target):
@@ -15,7 +17,8 @@ func _draw():
 
 func _ready():
 	speed = 1000 + PlayerDataHandler.PlayerData.ship.missile_launcher.projectile_speed * 500
-	cluster = PlayerDataHandler.PlayerData.ship.missile_launcher.cluster
+	if !is_cluster:
+		cluster = PlayerDataHandler.PlayerData.ship.missile_launcher.cluster
 	$ArmingTimer.wait_time = 1 - PlayerDataHandler.PlayerData.ship.missile_launcher.lockon_speed * .25
 
 func _physics_process(delta):
@@ -39,6 +42,8 @@ func _physics_process(delta):
 		'drifting':
 			position -= transform.y * 150 * delta
 		'exploded':
+			if cluster > 0 and !is_cluster:
+				spawn_cluster()
 			for b in $LockOnZone.get_overlapping_bodies():
 				if b.is_in_group('enemy'):
 					b.take_dmg(.5)
@@ -96,3 +101,13 @@ func _on_LockOnZone_body_exited(body):
 					target = t
 		else:
 			target = null
+
+func spawn_cluster():
+	for i in range(cluster):
+		print("SPAWNING GUY", cluster)
+		var m = missile.instance()
+		m.edge_warp_thresh = edge_warp_thresh
+		m.position = global_position
+		m.is_cluster = true
+		m.rotation = rotation + (2*PI / (cluster - i))
+		get_parent().add_child(m)

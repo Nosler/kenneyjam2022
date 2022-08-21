@@ -9,6 +9,7 @@ var bullet_speed = 1000
 var edge_warp_thresh
 var hp = 55
 var area_color = Color.blue
+var is_dead = false
 
 func _ready():
 	area_color.a = .05

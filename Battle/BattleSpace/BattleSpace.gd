@@ -48,7 +48,7 @@ func _input(event):
 func _ready():
 	PlayerDataHandler.load_attributes()
 	print("Player Level %s" % PlayerDataHandler.PlayerData.ship.level)
-	var player_durability = clamp(PlayerDataHandler.PlayerData.ship.hp * 2 + PlayerDataHandler.PlayerData.ship.shield * 3.5, 5, 65)
+	var player_durability = clamp(PlayerDataHandler.PlayerData.ship.hp * 1 + PlayerDataHandler.PlayerData.ship.shield * 3 + PlayerDataHandler.PlayerData.ship.level * 10, 5, 65)
 	size = -65 * player_durability + 4500
 	var cam_margin = range_lerp(size, 4500, 500, 300, 40)
 	$Player.edge_warp_thresh = size/2
