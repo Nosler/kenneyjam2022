@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 
-var DialogueFilepath: = "res://IntroCinematic/IntroDialogue.json"
+var DialogueFilepath: = "res://Cinematics/OutroDialogue.json"
 var DialogueData: = { }
 var Display: = ""
 var Lines: = [ ]
@@ -64,4 +64,4 @@ func _input(event: InputEvent) -> void:
 			Display.text = Lines[CurrentLine]
 			
 		elif CurrentLine >= Lines.size()-1:
-			get_tree().change_scene("res://HUB/HUB.tscn")
+			get_tree().change_scene("res://MainMenu/MainMenu.tscn")
