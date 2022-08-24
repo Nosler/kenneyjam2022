@@ -346,6 +346,7 @@ custom_fonts/font = SubResource( 11 )
 text = "Next Encounter!"
 
 [node name="BossButton" type="Button" parent="Buttons/VBoxContainer"]
+visible = false
 margin_top = 400.0
 margin_right = 520.0
 margin_bottom = 600.0

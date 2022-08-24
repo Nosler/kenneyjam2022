@@ -9,7 +9,6 @@ var PlayerData = { }
 func _ready():
 	load_attributes()
 
-
 # Reads PlayerData.json, parses it, then sets returned dict as PlayerData
 func load_attributes():
 	var file = File.new()
@@ -54,8 +53,6 @@ func reset_attributes():
 	save_attributes()
 
 	file.close()
-
-
 
 # Writes the PlayerData.json file with PlayerData dict-turned-json
 func save_attributes():

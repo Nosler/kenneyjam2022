@@ -67,7 +67,7 @@ func _ready():
 	
 	is_boss_level = EncounterHandler.encounterdata.encounter.boss
 	EncounterHandler.gen_encounter(PlayerDataHandler.PlayerData.ship.level)
-	
+	print(is_boss_level)
 	for i in range(EncounterHandler.encounterdata.encounter.lg_asteroids):
 		spawn_large_asteroid()
 	for i in range(EncounterHandler.encounterdata.encounter.sm_asteroids):
@@ -76,11 +76,10 @@ func _ready():
 		spawn_turret()
 	for i in range(EncounterHandler.encounterdata.encounter.kamikazes):
 		spawn_kamikaze()
-	if is_boss_level:
+	if PlayerDataHandler.PlayerData.ship.level >= 10:
 		col = Color.green
 		$CanvasLayer/BossHP.visible = true
 		spawn_rivalman()
-		
 	spawn_stars()
 
 func _process(delta):
