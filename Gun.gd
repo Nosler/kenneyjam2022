@@ -16,7 +16,7 @@ func shoot():
 		get_parent().get_parent().add_child(p)
 		$Pew.play()
 
-func take_dmg(_n):
+func take_damage(_n):
 	$DisableTimer.start()
 	$Sprite.modulate = Color.red
 	knocked_out = true

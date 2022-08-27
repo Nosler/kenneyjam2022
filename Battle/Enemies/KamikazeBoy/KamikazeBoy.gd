@@ -4,11 +4,13 @@ var edge_warp_thresh
 var speed = 1000
 var target = null
 var area_color = Color.green
+
 func _ready():
 	area_color.a = .05
 	
 func _draw():
 	draw_circle(Vector2.ZERO, $Area2D/CollisionShape2D.shape.radius, area_color)
+
 func _physics_process(delta):
 	if position.x >= edge_warp_thresh or position.x <= -edge_warp_thresh:
 		position = Vector2(clamp(-position.x, -edge_warp_thresh, edge_warp_thresh), clamp(position.y, -edge_warp_thresh, edge_warp_thresh))
@@ -39,5 +41,5 @@ func _on_KamikazeBoy_body_entered(body):
 		body.take_damage(1)
 		queue_free()
 
-func take_dmg(x):
+func take_damage(x):
 	queue_free()

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Battle/BattleSpace/BattleSpace.gd" type="Script" id=1]
 [ext_resource path="res://Battle/BattleSpace/GodotRecipesMultitarget.gd" type="Script" id=2]
 [ext_resource path="res://Battle/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Battle/BattleSpace/DrawDot.gd" type="Script" id=4]
+[ext_resource path="res://Fonts/Kenney Future.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="DynamicFont" id=1]
@@ -12,7 +13,20 @@ font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 60
+outline_color = Color( 0.411765, 0, 0.701961, 1 )
 font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+outline_size = 1
+outline_color = Color( 0.337255, 0, 1, 1 )
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 15
+outline_size = 1
+outline_color = Color( 0.337255, 0, 1, 1 )
+font_data = ExtResource( 5 )
 
 [node name="BattleSpace" type="Node2D"]
 script = ExtResource( 1 )
@@ -66,16 +80,32 @@ Returning to Main Menu."
 align = 1
 
 [node name="UI" type="VBoxContainer" parent="CanvasLayer"]
+anchor_left = 0.01
+anchor_top = 0.01
+anchor_right = 0.01
+anchor_bottom = 0.01
 
-[node name="Energy" type="ColorRect" parent="CanvasLayer/UI"]
-margin_bottom = 10.0
-rect_min_size = Vector2( 0, 10 )
-size_flags_horizontal = 3
-color = Color( 0.00784314, 0, 1, 1 )
+[node name="Size" type="HBoxContainer" parent="CanvasLayer/UI"]
+margin_right = 69.0
+margin_bottom = 23.0
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Size"]
+margin_right = 65.0
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 4 )
+text = "Size:"
+
+[node name="Value" type="Label" parent="CanvasLayer/UI/Size"]
+margin_left = 69.0
+margin_top = 2.0
+margin_right = 69.0
+margin_bottom = 20.0
+custom_fonts/font = SubResource( 3 )
 
 [node name="Defence" type="HBoxContainer" parent="CanvasLayer/UI"]
-margin_top = 14.0
-margin_bottom = 24.0
+margin_top = 27.0
+margin_right = 69.0
+margin_bottom = 37.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 0
 
@@ -88,6 +118,14 @@ color = Color( 1, 0, 0, 1 )
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 color = Color( 0.0117647, 0.952941, 1, 1 )
+
+[node name="Energy" type="ColorRect" parent="CanvasLayer/UI"]
+margin_top = 41.0
+margin_right = 69.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+color = Color( 0.00784314, 0, 1, 1 )
 
 [node name="BossHP" type="ColorRect" parent="CanvasLayer"]
 visible = false

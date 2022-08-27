@@ -60,7 +60,7 @@ func _physics_process(delta):
 			pass
 	update()
 
-func take_dmg(x):
+func take_damage(x):
 	hp -= x
 	$TakeDmg.play()
 	if hp <= 0:

@@ -1,5 +1,4 @@
-# From
-# https://kidscancode.org/godot_recipes/2d/multi_target_camera/
+# From https://kidscancode.org/godot_recipes/2d/multi_target_camera/
 
 extends Camera2D
 

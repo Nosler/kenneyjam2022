@@ -17,11 +17,11 @@ func _on_PewPew_body_entered(body):
 		body.take_damage(1)
 		queue_free()
 	if body.is_in_group("enemy") and !body.is_in_group("turret"):
-		body.take_dmg(40)
+		body.take_damage(40)
 		queue_free()
 
 func force_scale(_s):
 	pass
 
-func take_dmg(_x):
+func take_damage(_x):
 	pass

@@ -48,7 +48,7 @@ func _physics_process(delta):
 		'exploded':
 			for b in $LockOnZone.get_overlapping_bodies():
 				if b.is_in_group('enemy'):
-					b.take_dmg(.5)
+					b.take_damage(.5)
 	update()
 
 func _on_ArmingTimer_timeout():
@@ -79,7 +79,7 @@ func _on_Missile_body_entered(body):
 
 func _on_ExplosionZone_body_entered(body):
 	if state == 'exploded' and body.is_in_group('enemy'):
-		body.take_dmg(3)
+		body.take_damage(3)
 		
 func _on_ExplosionTimer_timeout():
 	queue_free()

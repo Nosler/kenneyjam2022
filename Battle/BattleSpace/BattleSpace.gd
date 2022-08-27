@@ -46,7 +46,6 @@ func _input(event):
 func _ready():
 	EncounterHandler.load_encounter_data()
 	PlayerDataHandler.load_attributes()
-	print("Player Level %s" % PlayerDataHandler.PlayerData.ship.level)
 	var player_durability = clamp(PlayerDataHandler.PlayerData.ship.hp * 1 + PlayerDataHandler.PlayerData.ship.shield * 3 + PlayerDataHandler.PlayerData.ship.level * 10, 5, 65)
 	size = -65 * player_durability + 4500
 	var cam_margin = range_lerp(size, 4500, 500, 300, 40)
@@ -54,6 +53,7 @@ func _ready():
 	$CanvasLayer/UI/Energy.rect_size.x = 50
 	$CanvasLayer/UI/Defence/HP.rect_size.x = 50
 	$CanvasLayer/UI/Defence/Shield.rect_size.x = 50
+	$CanvasLayer/UI/Size/Value.text = str(4500 - size)
 	$Camera2D.margin = Vector2(cam_margin,cam_margin)
 	$CSpotNW.position = Vector2((-size/2)*cspot_offset,(-size/2)*cspot_offset)
 	$CSpotNE.position = Vector2((size/2)*cspot_offset,(-size/2)*cspot_offset)
@@ -68,13 +68,13 @@ func _ready():
 	is_boss_level = EncounterHandler.encounterdata.encounter.boss
 	EncounterHandler.gen_encounter(PlayerDataHandler.PlayerData.ship.level)
 	
-	for i in range(EncounterHandler.encounterdata.encounter.lg_asteroids):
+	for _i in range(EncounterHandler.encounterdata.encounter.lg_asteroids):
 		spawn_large_asteroid()
-	for i in range(EncounterHandler.encounterdata.encounter.sm_asteroids):
+	for _i in range(EncounterHandler.encounterdata.encounter.sm_asteroids):
 		spawn_smol_asteroid()
-	for i in range(EncounterHandler.encounterdata.encounter.turrets):
+	for _i in range(EncounterHandler.encounterdata.encounter.turrets):
 		spawn_turret()
-	for i in range(EncounterHandler.encounterdata.encounter.kamikazes):
+	for _i in range(EncounterHandler.encounterdata.encounter.kamikazes):
 		spawn_kamikaze()
 	if is_boss_level:
 		col = Color.green
@@ -83,7 +83,7 @@ func _ready():
 		
 	spawn_stars()
 
-func _process(delta):
+func _process(_delta):
 	if !lost:
 		update()
 		if $Player.pdl_activated:
@@ -104,9 +104,11 @@ func _draw():
 	draw_rect(Rect2(-size/2, -size/2, size, size), col, false, 1, false)
 	draw_rect(Rect2(-size/2 - size/100, -size/2 - size/100, size + size/50, size + size/50), col.darkened(.5), false, 1, false)
 	
+# --===-- Entity Spawning / Handling Logic --===--
+
 func _on_Player_ready():
 	$Player.edge_warp_thresh = size/2
-	
+
 func spawn_large_asteroid():
 	var rand = RandomNumberGenerator.new()
 	rand.randomize()
@@ -119,6 +121,18 @@ func spawn_large_asteroid():
 	a.position.y = rand.randf_range(-size/2, size/2)
 	a.position.x = rand.randf_range(-size/2, size/2)
 	add_child(a)
+
+func on_large_asteroid_destroyed(p):
+	var rand = RandomNumberGenerator.new()
+	rand.randomize()
+	for _i in range(3):
+		var a = asteroidS.instance()
+		a.angular_velocity = rand.randf_range(5,60)
+		a.linear_velocity = Vector2(0, rand.randf_range(50, size/10)).rotated(rand.randf_range(0,360))
+		a.edge_warp_thresh = size/2
+		a.position = p
+		a.force_scale(size)
+		add_child(a)
 
 func spawn_smol_asteroid():
 	var rand = RandomNumberGenerator.new()
@@ -135,13 +149,13 @@ func spawn_smol_asteroid():
 func spawn_stars():
 	var rand = RandomNumberGenerator.new()
 	var star_colors = [Color.blue, Color.indigo, Color.aqua, Color.purple, Color.green]
-	var ss = range_lerp(size/2, 4500, 500, .8, .2)
+	var star_size = range_lerp(size/2, 4500, 500, .8, .2)
 	rand.randomize()
-	for i in range(1000):
+	for _i in range(1000):
 		var s = star.instance()
 		s.modulate = star_colors[randi() % star_colors.size()-1]
 		s.modulate.a = rand.randf_range(0.0, .5)
-		s.scale = Vector2(ss,ss)
+		s.scale = Vector2(star_size,star_size)
 		s.frame = randi() % 5
 		if randi() % 3 < 2:
 			s.playing = true
@@ -176,33 +190,16 @@ func spawn_rivalman():
 	var r = rivalman.instance()
 	r.force_scale(size)
 	r.position = Vector2.ZERO
-	r.connect("destroyed", self, "win_game")
+	r.connect("destroyed", self, "_on_rivalman_destroyed")
 	add_child(r)
 
-func on_large_asteroid_destroyed(p):
-	var rand = RandomNumberGenerator.new()
-	rand.randomize()
-	for i in range(3):
-		var a = asteroidS.instance()
-		a.angular_velocity = rand.randf_range(5,60)
-		a.linear_velocity = Vector2(0, rand.randf_range(50, size/10)).rotated(rand.randf_range(0,360))
-		a.edge_warp_thresh = size/2
-		a.position = p
-		a.force_scale(size)
-		add_child(a)
+# --===-- Battle Exit Logic --===--
 
 func _on_CheckForEnemies_timeout():
 	var children = get_children()
 	for child in children:
 		if child.is_in_group('enemy'):
 			return
-	win()
-
-func _on_Player_tree_exiting():
-	if !lost:
-		lose()
-	
-func win():
 	PlayerDataHandler.PlayerData.ship.exp += EncounterHandler.encounterdata.encounter.reward_xp
 	PlayerDataHandler.PlayerData.ship.paperclips += EncounterHandler.encounterdata.encounter.reward_money
 	PlayerDataHandler.PlayerData.ship.hp = $Player.hp
@@ -213,25 +210,25 @@ func win():
 	$WinTimer.start()
 	get_tree().paused = true
 
-func win_game():
+func _on_Player_tree_exiting():
+	if !lost:
+		$Camera2D.remove_target($Player)
+		lost = true
+		$LoseTimer.start()
+		$CanvasLayer/YouLose.visible = true	
+
+func _on_rivalman_destroyed():
 	game_over = true
 	$CanvasLayer/YouWin.visible = true
 	$CanvasLayer/YouWin/YouWinLabel.text = "RIVAL MAN DEFEATED!!!\n\nYOU WIN!"
 	$WinTimer.start()
 	get_tree().paused = true
-	
-func lose():
-	$Camera2D.remove_target($Player)
-	lost = true
-	$LoseTimer.start()
-	$CanvasLayer/YouLose.visible = true
-	
-func _on_LoseTimer_timeout():
-	get_tree().change_scene("res://MainMenu/MainMenu.tscn")
-	
+
 func _on_WinTimer_timeout():
 	if !game_over:
 		get_tree().change_scene("res://HUB/HUB.tscn")
-		
 	else:
 		get_tree().change_scene("res://Cinematics/OutroCinematic.tscn")
+
+func _on_LoseTimer_timeout():
+	get_tree().change_scene("res://MainMenu/MainMenu.tscn")

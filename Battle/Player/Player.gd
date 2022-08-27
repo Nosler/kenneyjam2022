@@ -68,7 +68,7 @@ func _process(_delta):
 	update()
 
 func _input(event):
-	if event.is_action_pressed('debug_take_dmg'):
+	if event.is_action_pressed('debug_take_damage'):
 		take_damage(1)
 	if event.is_action_pressed('weapon1'):
 		shoot_pewpew()
@@ -171,7 +171,7 @@ func _on_InvulFlash_timeout():
 func _on_PDLTimer_timeout():
 	if !pdl_targets.empty():
 		energy -= pdl_cost
-		pdl_targets[0].take_dmg(1)
+		pdl_targets[0].take_damage(1)
 		if energy <= 0:
 			toggle_pdl(false)
 		$PDLZap.play()
