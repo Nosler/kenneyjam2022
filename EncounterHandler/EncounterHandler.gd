@@ -20,6 +20,7 @@ var enemies = {
 		"name": "sm_asteroids", 
 		"xp":1,
 		"paperclips":50,
+		"paperclips":50,
 		"tier":1
 		},
 	"turret": {
@@ -135,6 +136,7 @@ func gen_encounter(level):
 
 		if xp_used + new_enemy.xp <= xp_budget and new_enemy.tier <= tier:
 			xp_used += new_enemy.xp
+			enc_reward += new_enemy.paperclips
 			enc_reward += new_enemy.paperclips
 			encounterdata.encounter[new_enemy.name] += 1
 
