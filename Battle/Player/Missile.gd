@@ -109,7 +109,6 @@ func _on_LockOnZone_body_exited(body):
 func spawn_cluster():
 	if !is_cluster:
 		for i in range(cluster):
-			print("SPAWNING GUY", cluster)
 			var m = missile.instance()
 			m.edge_warp_thresh = edge_warp_thresh
 			m.position = global_position

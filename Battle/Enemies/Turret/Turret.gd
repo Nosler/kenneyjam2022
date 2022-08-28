@@ -52,7 +52,6 @@ func _physics_process(delta):
 				elif dotprod > 0.01:
 					rotation += rotate_speed
 				else:
-					print("BOOM")
 					shoot_pew()
 					$LoadingTimer.start()
 					state = 'loading'
@@ -79,7 +78,6 @@ func shoot_pew():
 func _on_LoadingTimer_timeout():
 	if target:
 		state = 'aiming'
-		print("AIMING")
 	else:
 		state = 'waiting'
 
@@ -88,17 +86,12 @@ func _on_detection_area_body_entered(body):
 		target = body
 		if state == 'waiting':
 			state = 'aiming'
-			print("AIMING")
 
 func _on_detection_area_body_exited(body):
 	if body.name == "Player":
 		target = null
 		if state == 'aiming':
 			state = 'waiting'
-
-func _on_Turret_body_entered(body):
-	if body.name == "Player":
-		print("BONK")
 
 func force_scale(size):
 	var s = range_lerp(size, 4500, 500, 1, .1)

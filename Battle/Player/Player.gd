@@ -45,7 +45,6 @@ func _ready():
 	$PDLTimer.wait_time = 0.35 - PlayerDataHandler.PlayerData.ship.point_defense.fire_rate / 10
 	pdl_level = PlayerDataHandler.PlayerData.ship.point_defense.energy_regen
 	
-	print(PlayerDataHandler.PlayerData.ship.point_defense.enabled)
 	has_pdl = PlayerDataHandler.PlayerData.ship.point_defense.enabled
 	has_ioncannon = PlayerDataHandler.PlayerData.ship.ion_cannon.enabled
 	has_missiles = PlayerDataHandler.PlayerData.ship.missile_launcher.enabled
