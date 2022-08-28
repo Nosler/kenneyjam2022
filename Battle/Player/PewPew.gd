@@ -20,5 +20,4 @@ func _on_Lifespan_timeout():
 func _on_PewPew_body_entered(body):
 	if body.is_in_group("enemy"):
 		body.take_damage(15)
-		print("you hit nice")
 		queue_free()

@@ -136,7 +136,6 @@ func take_damage(dmg):
 		$TakeDamage.play()
 		
 func die():
-	print('lol im fuckin dead')
 	queue_free()
 	
 func _draw():

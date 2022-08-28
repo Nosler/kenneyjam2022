@@ -19,19 +19,15 @@ func start_game():
 
     # If PlayerData shows a level 1 player, sends them to the IntroCinematic. Otherwise sends them to the hub.
     if playerlevel > 1:
-        print("Starting game at Intro Cinematic.")
         get_tree().change_scene("res://HUB/HUB.tscn")
 
     else:
-        print("Starting game at HUB.")
         get_tree().change_scene("res://Cinematics/IntroCinematic.tscn")
 
 # Displays credits
 func run_credits():
-    print("Running credits.")
     get_tree().change_scene("res://Credits/Credits.tscn")
 
 # Exits game
 func exit_game():
-    print("Exiting game.")
     get_tree().quit()

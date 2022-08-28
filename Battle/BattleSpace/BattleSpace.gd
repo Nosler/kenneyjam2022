@@ -146,7 +146,6 @@ func spawn_smol_asteroid():
 	add_child(a)
 
 func spawn_stars():
-	print("Spawning stars")
 	var rand = RandomNumberGenerator.new()
 	var star_colors = [Color.blue, Color.indigo, Color.aqua, Color.purple, Color.green]
 	var star_size = range_lerp(size/2, 4500, 500, .8, .2)
