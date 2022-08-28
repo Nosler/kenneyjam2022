@@ -12,23 +12,27 @@ var rng = RandomNumberGenerator.new()
 var enemies = { 
 	"lg_asteroid": {
 		"name": "lg_asteroids", 
-		"xp":3,
+		"xp":2,
+		"paperclips":100,
 		"tier":1
 		},
 	"sm_asteroid": {
 		"name": "sm_asteroids", 
 		"xp":1,
+		"paperclips":50,
 		"tier":1
 		},
 	"turret": {
 		"name": "turrets", 
-		"xp":2,
-		"tier":5
+		"xp":4,
+		"paperclips":150,
+		"tier":2
 		},
 	"kamikaze": {
 		"name": "kamikazes", 
-		"xp":5,
-		"tier":5
+		"xp":3,
+		"paperclips":200,
+		"tier":3
 		}
 }
 
@@ -105,34 +109,23 @@ func gen_encounter(level):
 	
 	rng.randomize()
 	
-	print("Should generate encounter here for level %s" % level)
 	# Tier 1 encounters
 	if level < 4:
 		print("Tier 1 encounter")
 		tier = 1
 		xp_budget = rng.randi_range(5,10)
-		enc_reward = rng.randi_range(20,70)*10
 
 	# Tier 2 encounters
 	elif level >= 4 and level < 9:
 		print("Tier 2 encounter")
 		tier = 2
 		xp_budget = rng.randi_range(14,25)
-		enc_reward = rng.randi_range(30,90)*10
 
-	# Tier 3 encounters
-	elif level >= 9 and level < 15:
+	# Tier 3 encounters & post-game, scales to player level
+	elif level >= 9:
 		print("Tier 3 encounter")
 		tier = 3
-		xp_budget = rng.randi_range(30,60)
-		enc_reward = rng.randi_range(50,120)*10
-
-	# Tier 4 encounters (post-game, scales encounter XP and rewards with level after this point
-	elif level >= 15:
-		print("Tier 4 encounter")
-		tier = 4
 		xp_budget = rng.randi_range(2*level,4*level)
-		enc_reward = rng.randi_range(3*level, 6*level)*10
 
 	var attempts = 0
 	while xp_used < xp_budget and attempts < 500:
@@ -142,7 +135,9 @@ func gen_encounter(level):
 
 		if xp_used + new_enemy.xp <= xp_budget and new_enemy.tier <= tier:
 			xp_used += new_enemy.xp
+			enc_reward += new_enemy.paperclips
 			encounterdata.encounter[new_enemy.name] += 1
+
 
 	encounterdata.encounter.reward_money = enc_reward
 	encounterdata.encounter.reward_xp = xp_used

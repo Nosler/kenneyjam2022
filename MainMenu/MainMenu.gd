@@ -6,6 +6,8 @@ func _ready():
 	$Buttons/LoadGame.connect("pressed", self, "start_game")
 	$Buttons/Credits.connect("pressed", self, "run_credits")
 	$Buttons/Exit.connect("pressed", self, "exit_game")
+	var PlayerDataHandler = get_node("/root/PlayerDataHandler")
+	PlayerDataHandler.reset_attributes()
 	
 func new_game():
 	var PlayerDataHandler = get_node("/root/PlayerDataHandler")
