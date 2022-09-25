@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/star_08.png" type="Texture" id=1]
 [ext_resource path="res://assets/star_02.png" type="Texture" id=2]
 [ext_resource path="res://assets/star_07.png" type="Texture" id=3]
 [ext_resource path="res://assets/star_06.png" type="Texture" id=4]
+[ext_resource path="res://Battle/BattleSpace/Star.gd" type="Script" id=5]
 [ext_resource path="res://assets/star_09.png" type="Texture" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
@@ -19,3 +20,4 @@ modulate = Color( 1, 1, 1, 0.121569 )
 z_index = -100
 frames = SubResource( 1 )
 frame = 2
+script = ExtResource( 5 )

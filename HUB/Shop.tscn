@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/star_09.png" type="Texture" id=1]
 [ext_resource path="res://assets/star_02.png" type="Texture" id=2]
@@ -17,7 +17,36 @@ bg_color = Color( 0, 0, 0, 1 )
 bg_color = Color( 0.0941176, 0, 0.211765, 1 )
 
 [sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.568627, 0.160784, 1, 1 )
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=22]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.772549, 0.0235294, 0.94902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.568627, 0, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=23]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 0, 0.960784, 1 )
+
+[sub_resource type="Theme" id=21]
+Button/styles/hover = SubResource( 22 )
+Button/styles/normal = SubResource( 20 )
+Button/styles/pressed = SubResource( 23 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 50
@@ -29,6 +58,12 @@ font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=17]
 font_data = ExtResource( 9 )
+
+[sub_resource type="StyleBoxFlat" id=24]
+bg_color = Color( 0.0705882, 0, 0.0862745, 1 )
+
+[sub_resource type="Theme" id=25]
+Label/styles/normal = SubResource( 24 )
 
 [sub_resource type="DynamicFont" id=10]
 size = 30
@@ -88,7 +123,7 @@ scale = Vector2( 0.0875, 0.0875 )
 texture = ExtResource( 6 )
 
 [node name="Star09" type="Sprite" parent="SpaceGraphic"]
-position = Vector2( 76, 56 )
+position = Vector2( -78, 100 )
 scale = Vector2( 0.113769, 0.113769 )
 texture = ExtResource( 1 )
 
@@ -97,8 +132,18 @@ position = Vector2( 656, 307 )
 scale = Vector2( 0.131836, 0.131836 )
 texture = ExtResource( 7 )
 
+[node name="Star17" type="Sprite" parent="SpaceGraphic"]
+position = Vector2( -222, 262 )
+scale = Vector2( 0.131836, 0.131836 )
+texture = ExtResource( 7 )
+
 [node name="Star06" type="Sprite" parent="SpaceGraphic"]
 position = Vector2( 1218, 344 )
+scale = Vector2( 0.189453, 0.189453 )
+texture = ExtResource( 5 )
+
+[node name="Star18" type="Sprite" parent="SpaceGraphic"]
+position = Vector2( 1043, 1055 )
 scale = Vector2( 0.189453, 0.189453 )
 texture = ExtResource( 5 )
 
@@ -109,6 +154,11 @@ texture = ExtResource( 5 )
 
 [node name="Star11" type="Sprite" parent="SpaceGraphic"]
 position = Vector2( 105, 223 )
+scale = Vector2( 0.0917969, 0.0917969 )
+texture = ExtResource( 5 )
+
+[node name="Star19" type="Sprite" parent="SpaceGraphic"]
+position = Vector2( -189, 1050 )
 scale = Vector2( 0.0917969, 0.0917969 )
 texture = ExtResource( 5 )
 
@@ -163,6 +213,7 @@ margin_bottom = 600.0
 custom_styles/panel = SubResource( 19 )
 
 [node name="ShipIcon" type="MarginContainer" parent="."]
+visible = false
 margin_right = 400.0
 margin_bottom = 400.0
 
@@ -176,6 +227,7 @@ margin_left = 1400.0
 margin_top = 400.0
 margin_right = 1920.0
 margin_bottom = 1000.0
+theme = SubResource( 21 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
 margin_right = 520.0
@@ -184,8 +236,8 @@ rect_pivot_offset = Vector2( -606, -72 )
 
 [node name="ReturnButton" type="Button" parent="Buttons/VBoxContainer"]
 margin_right = 520.0
-margin_bottom = 300.0
-rect_min_size = Vector2( 0, 300 )
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 600 )
 custom_fonts/font = SubResource( 7 )
 text = "Return"
 
@@ -194,6 +246,7 @@ margin_top = 400.0
 margin_right = 300.0
 margin_bottom = 746.0
 rect_min_size = Vector2( 0, 346 )
+theme = SubResource( 21 )
 
 [node name="LabelContainer" type="VBoxContainer" parent="NameLabels"]
 margin_right = 300.0
@@ -271,6 +324,7 @@ margin_top = 400.0
 margin_right = 340.0
 margin_bottom = 440.0
 rect_min_size = Vector2( 550, 150 )
+theme = SubResource( 25 )
 
 [node name="Panel" type="Panel" parent="PewPewTrackers"]
 margin_right = 550.0
@@ -318,6 +372,7 @@ margin_top = 550.0
 margin_right = 850.0
 margin_bottom = 700.0
 rect_min_size = Vector2( 550, 150 )
+theme = SubResource( 25 )
 
 [node name="Panel" type="Panel" parent="PointDefenseTrackers"]
 margin_right = 550.0
@@ -365,6 +420,7 @@ margin_top = 700.0
 margin_right = 850.0
 margin_bottom = 850.0
 rect_min_size = Vector2( 550, 150 )
+theme = SubResource( 25 )
 
 [node name="Panel" type="Panel" parent="IonCannonTrackers"]
 margin_right = 550.0
@@ -410,6 +466,7 @@ margin_top = 850.0
 margin_right = 850.0
 margin_bottom = 1000.0
 rect_min_size = Vector2( 550, 150 )
+theme = SubResource( 25 )
 
 [node name="Panel" type="Panel" parent="MissileTrackers"]
 margin_right = 550.0
@@ -457,6 +514,7 @@ margin_top = 400.0
 margin_right = 1100.0
 margin_bottom = 550.0
 rect_min_size = Vector2( 250, 150 )
+theme = SubResource( 21 )
 
 [node name="PewPewGrid" type="GridContainer" parent="PewPewShop"]
 margin_right = 250.0
@@ -527,6 +585,7 @@ margin_top = 550.0
 margin_right = 1100.0
 margin_bottom = 700.0
 rect_min_size = Vector2( 250, 150 )
+theme = SubResource( 21 )
 
 [node name="PDGrid" type="GridContainer" parent="PointDefenseShop"]
 margin_right = 250.0
@@ -597,6 +656,7 @@ margin_top = 700.0
 margin_right = 1100.0
 margin_bottom = 850.0
 rect_min_size = Vector2( 250, 150 )
+theme = SubResource( 21 )
 
 [node name="ICGrid" type="GridContainer" parent="IonCannonShop"]
 margin_right = 250.0
@@ -667,6 +727,7 @@ margin_top = 850.0
 margin_right = 1100.0
 margin_bottom = 1000.0
 rect_min_size = Vector2( 250, 150 )
+theme = SubResource( 21 )
 
 [node name="MissGrid" type="GridContainer" parent="MissileShop"]
 margin_right = 250.0
@@ -737,6 +798,7 @@ margin_top = 400.0
 margin_right = 1140.0
 margin_bottom = 440.0
 rect_min_size = Vector2( 300, 600 )
+theme = SubResource( 21 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Resources"]
 margin_right = 300.0

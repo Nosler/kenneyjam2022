@@ -10,10 +10,15 @@ config_version=4
 
 [application]
 
-config/name="kennyjam2022"
+config/name="Rivalman"
+config/description="Upgrade and Grow your ship in preparation to fight RIVALMAN, so that you can keep your job as a space beurocrat! 
+
+Made for KenneyJam2022
+"
 run/main_scene="res://MainMenu/MainMenu.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://icon.png"
+config/icon="res://RivalManIcon.png"
+config/windows_native_icon="res://RivalManIcon.ico"
 
 [autoload]
 
