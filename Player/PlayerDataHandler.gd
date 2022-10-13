@@ -1,6 +1,6 @@
 extends Node
 
-const PlayerDataFilepath = "res://Player/PlayerData.json"
+const PlayerDataFilepath = "user://Player/PlayerData.json"
 const PlayerDefaultDataFilepath = "res://Player/PlayerDefaultData.json"
 
 var PlayerData = { }
@@ -31,7 +31,7 @@ func load_attributes():
 	file.close()
 	
 
-# Resets all PlayerData to match the PlayerDataDefault file
+# Resets PlayerData var to match the PlayerDataDefault file's contents
 func reset_attributes():
 	var file = File.new()
 
@@ -54,7 +54,7 @@ func reset_attributes():
 
 	file.close()
 
-# Writes the PlayerData.json file with PlayerData dict-turned-json
+# Writes the PlayerData.json file with PlayerData var
 func save_attributes():
 	var file = File.new()
 	
